@@ -8,7 +8,7 @@ namespace UMI.HTTP
             switch (result)
             {
                 case "getLogin":
-                    LK = "http://localhost:8000/login/";
+                    LK = "http://localhost:8000/api/user/getPlyerLogin/";
                     break;
             }
             return LK;
