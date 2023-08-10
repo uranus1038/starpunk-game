@@ -60,9 +60,9 @@ public class PlayerCameraControl : MonoBehaviour
 
 		//RightClick
 		if (Input.GetAxis("Mouse X") < 0 && Input.GetMouseButton(1))
-			this.rotation++;
+			this.rotation=this.rotation -4f;
 		if (Input.GetAxis("Mouse X") > 0 && Input.GetMouseButton(1))
-			this.rotation--;
+			this.rotation=this.rotation +4f;
 
 	}
     public virtual void LateUpdate()
