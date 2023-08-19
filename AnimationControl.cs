@@ -6,6 +6,8 @@ public enum Anim
     normal , 
     idel , 
     move , 
+    jumpR,
+    jumpL,
 }
 public class AnimationControl : MonoBehaviour
 {

@@ -7,19 +7,25 @@ public class Leo : MonoBehaviour
     private Animator action;
     private bool actor;
     private bool actor2;
+    private bool actor3;
+    private bool actor4;
+    private bool isGrounded;
     private CharacterController character;
     private GameObject cameraTransform;
+    public float delay ;
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
     private float groundCheckRadius = 0.2f;
     private Vector3 playerVelocity;
     private Vector3 previousPosition;
     public LayerMask groundLayer;
-    private bool isGrounded;
     private void Awake()
     {
         this.actor = false;
         this.actor2 = false;
+        this.actor3 = false;
+        this.actor4 = false;
+        this.delay = 0f;
         this.character = (CharacterController)this.GetComponent(typeof(CharacterController));
         this.action = GetComponent<Animator>();
         this.cameraTransform = GameObject.Find("Camera");
@@ -42,36 +48,20 @@ public class Leo : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             playerVelocity.y = Mathf.Sqrt(jumpForce * -1f * Physics.gravity.y);
+            if(!this.actor3)
+            {
+                this.actor3 = true; 
+            }else
+            {
+                this.actor3 = false; 
+            }
         }
         // Apply Gravity
         this.playerVelocity.y += -15.0f * Time.deltaTime;
         this.character.Move(playerVelocity * Time.deltaTime);
+        //Add Animation
+        this.PlayerAnimationEvent();
 
-        Vector3 currentPosition = character.transform.position;
-        Vector3 displacement = currentPosition - previousPosition;
-        if (displacement.magnitude < 0.001f)
-        {
-            this.actor = false;
-            this.PlayeAnimation(AddAnimation((int)Anim.idel), 0.1f);
-        }
-        else
-        {
-            if (!this.actor)
-            {
-                this.actor = true;
-                this.PlayeAnimation(AddAnimation((int)Anim.move), 0.1f, 1.2f);
-            }
-            if (!this.character.isGrounded && this.actor)
-            {
-                this.actor2 = true;
-                this.PlayeAnimation(AddAnimation((int)Anim.normal), 1f);
-            }
-            if(this.actor2 && this.character.isGrounded)
-            {
-                this.actor2 = false; this.actor = false;
-            }
-        }
-        this.previousPosition = currentPosition;
         // Apply rotation
         if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
@@ -122,9 +112,51 @@ public class Leo : MonoBehaviour
         }
 
     }
-    private void PlayeAnimation(string nAnimationName, float nCrossFadeTime)
+    private void PlayerAnimationEvent()
     {
 
+        Vector3 currentPosition = character.transform.position;
+        Vector3 displacement = currentPosition - previousPosition;
+        if(displacement.magnitude > 0.001f)
+        {
+            this.delay = Time.time;
+        }
+        if (displacement.magnitude < 0.001f)
+        {
+            this.actor = false;
+            this.PlayAnimation(AddAnimation((int)Anim.idel), 0.2f);
+            if(Time.time - 0.2f > this.delay)
+            {
+                this.PlayAnimation(AddAnimation((int)Anim.idel), 0f);
+            }
+        }
+        else
+        {
+            if (!this.actor)
+            {
+                this.actor = true;
+                this.PlayAnimation(AddAnimation((int)Anim.move), 0f, 1.2f);
+            }
+            if (!this.character.isGrounded && this.actor)
+            {   
+                this.actor2 = true;
+                if(!this.actor3)
+                {
+                    this.PlayAnimation(AddAnimation((int)Anim.jumpL), 0f , 1.5f);
+                }else
+                {
+                    this.PlayAnimation(AddAnimation((int)Anim.jumpR), 0f, 1.5f);
+                }
+            }
+            if (this.actor2 && this.character.isGrounded)
+            {
+                this.actor2 = false; this.actor = false; 
+            }
+        }
+        this.previousPosition = currentPosition;
+    }
+    private void PlayAnimation(string nAnimationName, float nCrossFadeTime)
+    {
         if (nCrossFadeTime <= 0f)
         {
             this.action.Play(nAnimationName);
@@ -134,9 +166,8 @@ public class Leo : MonoBehaviour
             this.action.CrossFade(nAnimationName, nCrossFadeTime);
         }
     }
-    private void PlayeAnimation(string nAnimationName, float nCrossFadeTime, float nSpeed)
+    private void PlayAnimation(string nAnimationName, float nCrossFadeTime, float nSpeed)
     {
-
         if (nCrossFadeTime <= 0f)
         {
             this.action.Play(nAnimationName);
@@ -153,13 +184,19 @@ public class Leo : MonoBehaviour
         switch (nAnimationName)
         {
             case 0:
-                animation = "Root|a_leo";
+                animation = "root|a_leo";
                 break;
             case 1:
-                animation = "Root|idel_leo";
+                animation = "root|leo_idel";
                 break;
             case 2:
-                animation = "Root|move_leo";
+                animation = "root|leo_move";
+                break;
+            case 3:
+                animation = "root|leo_jump_R";
+                break;
+            case 4:
+                animation = "root|leo_jump_L";
                 break;
         }
 

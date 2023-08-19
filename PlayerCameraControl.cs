@@ -61,9 +61,11 @@ public class PlayerCameraControl : MonoBehaviour
 			this.rotation=this.rotation -4f;
 		if (Input.GetAxis("Mouse X") > 0 && Input.GetMouseButton(1))
 			this.rotation=this.rotation +4f;
-		if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+		if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) 
+			&& Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) && !Input.GetMouseButton(1))
 			this.rotation++;
-		if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+		if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S)
+			&& Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A) && !Input.GetMouseButton(1))
 			this.rotation--;
 	}
     public virtual void LateUpdate()
