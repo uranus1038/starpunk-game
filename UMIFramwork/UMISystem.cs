@@ -10,6 +10,10 @@ namespace UMI
         {
             print("UMI::"+msg);
         }
+        public static void Log(int msg)
+        {
+            print("UMI::" + msg);
+        }
     }
 
 }
