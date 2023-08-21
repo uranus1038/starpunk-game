@@ -26,16 +26,17 @@ public class Leo : ChracterControl
     }
     private void Start()
     {
-        this.isCheck1 = false;
-        this.isCheck2 = false;
+        this.isMine = true; 
         this.groundCheckRadius = 0.2f;
-        this.jumpForce = 8f;
-        this.animate.actionState = "standby";
     }
     void Update()
     {
-        this.playerControl();
-        this.hit(50,50);
+        if(this.isMine)
+        {
+            this.playerControl();
+        }
+
+      
     }
     private void playerControl()
     {

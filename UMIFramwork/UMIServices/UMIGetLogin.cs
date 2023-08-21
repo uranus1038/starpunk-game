@@ -28,7 +28,7 @@ namespace UMI.API
                 }
                 else
                 {
-                    UMISystem.Log("API down");
+                    callback(reply.error);
                 }
             }
 

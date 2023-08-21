@@ -7,6 +7,7 @@ public enum eLogin
     vetify,
     fail,
     down,
+    timeOut,
     NotFound,
     success,
     connect,

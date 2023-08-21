@@ -6,6 +6,7 @@ public enum charType
 }
 public class ChracterControl : MonoBehaviour
 {
+    [SerializeField] protected int UID;
     [SerializeField] protected string Name;
     [SerializeField] protected string ownerGuild;
     [SerializeField] protected string ownerName;
@@ -28,7 +29,7 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected int mko;
     [SerializeField] protected int cri;
     [SerializeField] protected int weight;
-    [SerializeField] protected float asp;
+    [SerializeField] protected float aspd;
     [SerializeField][Range(0,15)] protected float runSpeed;
     [SerializeField][Range(0,15)] protected float jumpForce;
     [SerializeField] protected string weapon;
@@ -38,7 +39,8 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected string trinket;
     [SerializeField] protected string pet;
     [SerializeField] protected int hitMod;
-    [SerializeField] protected int hate; public bool recieveTarget;
+    [SerializeField] protected int hate;
+    [SerializeField] protected bool recieveTarget;
     [SerializeField] protected bool recieveDamage;
     [SerializeField] protected bool recieveEffectDamage;
     [SerializeField] protected bool recieveMovement;
@@ -48,6 +50,7 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected bool recieveHate;
     [SerializeField] protected bool recieveRevive;
     [SerializeField] protected bool recieveGravity;
+    [SerializeField] protected bool isMine;
 
     [SerializeField] protected Vector3 myAttackPosition ;
     public ChracterControl()
@@ -74,7 +77,7 @@ public class ChracterControl : MonoBehaviour
         this.mko = 8;
         this.cri = 5;
         this.weight = 8;
-        this.asp = 5f;
+        this.aspd = 5f;
         this.runSpeed = 8f;
         this.jumpForce = 5f;
         this.weapon = "none";
@@ -86,16 +89,6 @@ public class ChracterControl : MonoBehaviour
         this.hitMod = 1;
         this.hate = 1;
         this.myAttackPosition = Vector3.zero;
-        this.recieveTarget = false;
-        this.recieveDamage = false;
-        this.recieveEffectDamage = false;
-        this.recieveMovement = false;
-        this.recieveForce = false;
-        this.recieveStatus = false;
-        this.recieveHeal = false;
-        this.recieveHate = false;
-        this.recieveRevive = false;
-        this.recieveGravity = false;
     }
     private void Awake()
     {

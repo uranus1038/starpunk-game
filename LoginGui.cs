@@ -2,9 +2,11 @@ using UnityEngine;
 using UMI.API;
 using UMI.Data;
 using UMI;
+using UMI.JSON;
 using UMI.Network.Client;
 public class LoginGui : MonoBehaviour
 {
+    internal protected static UMIJSON JSON = new UMIJSON();
     internal protected float delay_0;
     internal protected float display_0;
     internal protected string email_0;
@@ -28,7 +30,7 @@ public class LoginGui : MonoBehaviour
     }
     private void Init()
     {
-        this.texture_0 = this.texture_0 = (Texture)Resources.Load("GUI/Login/Black", typeof(Texture));
+         this.texture_0 = (Texture)Resources.Load("GUI/Login/black", typeof(Texture));
     }
     private void OnGUI()
     {
@@ -83,11 +85,26 @@ public class LoginGui : MonoBehaviour
             this.eLogin = eLogin.Login;
             return;
         }
+        if (this.eLogin == eLogin.timeOut)
+        {
+            if (Time.time < this.delay_0 + 0.5f)
+            {
+                this.RenderNoticeMessage("Too many requests, please try again later.");
+                return;
+            }
+            this.delay_0 = Time.time;
+            this.eLogin = eLogin.Login;
+            return;
+        }
         if (this.eLogin == eLogin.success)
         {
             this.OnConnect();
         }
         if (this.eLogin == eLogin.connect)
+        {
+            this.FetchData();
+        }
+        if(this.eLogin == eLogin.connected)
         {
 
         }
@@ -100,6 +117,7 @@ public class LoginGui : MonoBehaviour
         this.QUk8sYq_x = GUI.PasswordField(new Rect(0.5f * this.display_0 - 98f, 812f, 288f, 30f), this.QUk8sYq_x, "*"[0], 20);
         if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), "Submit"))
         {
+            UMIHashData.req = JSON.UMIRespon("{\"status\":\"202\"}");
             StartCoroutine(UMIGetLogin.star.GetLogin(this.email_0, this.QUk8sYq_x , UMIHashData.playerSetData));
             this.delay_0 = Time.time;
             this.eLogin = eLogin.Loading;
@@ -120,6 +138,16 @@ public class LoginGui : MonoBehaviour
                 this.delay_0 = Time.time;
                 this.eLogin = eLogin.fail;
             }
+            if (UMIHashData.req.status == "429")
+            {
+                this.delay_0 = Time.time;
+                this.eLogin = eLogin.timeOut;
+            }
+            if (UMIHashData.req.status == "500")
+            {
+                this.delay_0 = Time.time;
+                this.eLogin = eLogin.down;
+            }
         }
         catch
         {
@@ -131,14 +159,19 @@ public class LoginGui : MonoBehaviour
     {
         if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), "serve uranus"))
         {
-            this.OnJoinServer();
-            this.delay_0 = Time.time;
-            this.eLogin = eLogin.connect;
+            Game.loadNextLevel(0);
+           // this.OnJoinServer();
+            //this.delay_0 = Time.time;
+            //this.eLogin = eLogin.connect;
         }
+    }
+    private void FetchData()
+    {
+            this.RenderNoticeMessage("Retrieving player data file..");
     }
     private void OnJoinServer()
     {
-        UMIClientManager.star.connectServer();
+        //UMIClientManager.star.connectServer();
     }
     private void RenderNoticeMessage(string message)
     {
