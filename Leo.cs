@@ -151,7 +151,7 @@ public class Leo : ChracterControl
                   this.animate.PlayAnimation(this.animate.actionState,0,1f);
                 }else 
                 {
-                    this.animate.PlayAnimation(this.animate.actionState, 0, 1.2f);
+                    this.animate.PlayAnimation(this.animate.actionState, 0, 1.5f);
                 }            
             }
             if (!this.character.isGrounded && this.isCheck1)
