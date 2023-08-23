@@ -51,6 +51,7 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected bool recieveRevive;
     [SerializeField] protected bool recieveGravity;
     [SerializeField] protected bool isMine;
+    [SerializeField] protected string skin;
 
     [SerializeField] protected Vector3 myAttackPosition ;
     public ChracterControl()

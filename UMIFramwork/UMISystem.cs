@@ -21,6 +21,10 @@ namespace UMI
         {
             print("UMI::" + msg);
         }
+        public static void Log(bool msg)
+        {
+            print("UMI::" + msg);
+        }
         private void Init()
         {
             this.texture_0 = this.texture_0 = (Texture)Resources.Load("GUI/Login/white", typeof(Texture));
