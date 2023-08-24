@@ -33,7 +33,6 @@ public class PlayerCameraControl : MonoBehaviour
     // Token: 0x06003CB2 RID: 15538 RVA: 0x004DF670 File Offset: 0x004DD870
     private void Update()
     {
-		Camera.main.aspect = 16f / 9f;
 		this.cameraControl();
     }
 	private void cameraControl()
