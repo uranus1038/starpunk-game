@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMod : MonoBehaviour
 {
     private Transform camearaMod;
-    public float smooth ;
+    private float smooth ;
     private void Awake()
     {
         this.smooth = 1f; 

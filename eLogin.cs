@@ -10,6 +10,11 @@ public enum eLogin
     timeOut,
     NotFound,
     success,
+    isFull , 
+    serveOut ,
+    tooOut , 
     connect,
     connected,
+    retriev,
+    join , 
 }

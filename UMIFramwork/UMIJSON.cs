@@ -7,11 +7,13 @@ namespace UMI.JSON
         public string message;
         public string status;
         public Data data = new();
+        public CharacterClass cDac1 = new();
+        public CharacterClass cDac2 = new();
         [System.Serializable]
         public class Data
         {
             public string userName;
-            public string gender;
+            public int UID;
         }
         public UMIJSON UMIRespon(string data)
         {

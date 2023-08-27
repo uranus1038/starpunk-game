@@ -31,21 +31,24 @@ namespace UMI.Data
                         case "200":
                             try
                             {
-                                hDac.Add(01, req.data.userName);
-                                hDac.Add(01, req.data.gender);
+                                hDac.Add(1, req.data.userName);
                                 UMISystem.Log(req.data.userName);
-                                UMISystem.Log(req.data.gender);
                             }
                             catch
                             {
                             }
                             break;
-
                     }
                 }
 
             }
 
+        }
+        public static void playerLoadData(string data )
+        {
+            //req = JSON.UMIRespon(data);
+            UMISystem.Log(data);
+            Game.isLoadDac = true;
         }
 
     }

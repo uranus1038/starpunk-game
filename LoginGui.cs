@@ -92,7 +92,6 @@ public class LoginGui : MonoBehaviour
                 this.RenderNoticeMessage("Too many requests, please try again later.");
                 return;
             }
-            this.delay_0 = Time.time;
             this.eLogin = eLogin.Login;
             return;
         }
@@ -102,11 +101,43 @@ public class LoginGui : MonoBehaviour
         }
         if (this.eLogin == eLogin.connect)
         {
-            this.FetchData();
+           
         }
-        if(this.eLogin == eLogin.connected)
+        if (this.eLogin == eLogin.isFull)
         {
 
+        }
+        if (this.eLogin == eLogin.serveOut)
+        {
+
+        }
+        if (this.eLogin == eLogin.tooOut)
+        {
+
+        }
+        if (this.eLogin == eLogin.connected)
+        {
+            if (Time.time < this.delay_0 + 0.5f)
+            {
+                this.RenderNoticeMessage("Connected");
+                return;
+            }   
+            this.eLogin = eLogin.retriev;
+            return;
+        }
+        if (this.eLogin == eLogin.retriev)
+        {
+            this.FetchData();
+        }
+        if (this.eLogin == eLogin.join)
+        {
+            if (Time.time < this.delay_0 + 1f)
+            {
+                this.RenderNoticeMessage("Entering Starpunk . . .");
+                return;
+            }
+            this.OnJoin();
+            return;
         }
     }
     private void Login()
@@ -155,22 +186,36 @@ public class LoginGui : MonoBehaviour
         }
         
     }
+    private void OnJoin()
+    {
+        Game.loadNextLevel((int)eNextLevel.lobby);
+    }
     private void OnConnect()
     {
         if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), "serve uranus"))
         {
-            Game.loadNextLevel(0);
-           // this.OnJoinServer();
-            //this.delay_0 = Time.time;
-            //this.eLogin = eLogin.connect;
+            this.OnJoinServer();
+            this.delay_0 = Time.time;
+            this.eLogin = eLogin.connected;
         }
     }
     private void FetchData()
     {
-            this.RenderNoticeMessage("Retrieving player data file..");
+        this.RenderNoticeMessage("Retrieving player data . . .");
+        if (Time.time - this.delay_0 < 1f)
+        {
+            return;
+        }
+        if (Game.isLoadDac)
+        {
+            this.delay_0 = Time.time;
+            this.eLogin = eLogin.join;
+            return;
+        }
     }
     private void OnJoinServer()
     {
+        StartCoroutine(UMIGetData.star.GetData(UMIHashData.hDac[01].ToString(), UMIHashData.playerLoadData));
         //UMIClientManager.star.connectServer();
     }
     private void RenderNoticeMessage(string message)

@@ -26,6 +26,36 @@ public class LoadingGui : MonoBehaviour
             base.enabled = true;
         }
     }
+    public virtual void fadeIn(float time)
+    {
+        if (this.eLoading != eLoading.fadeIn)
+        {
+            this.eLoading = eLoading.fadeIn;
+            this.delay_0 = Time.time;
+            this.float_0 = time;
+            base.enabled = true;
+        }
+    }
+    public virtual void fadeOut()
+    {
+        if (this.eLoading != eLoading.fadeOut)
+        {
+            this.eLoading = eLoading.fadeOut;
+            this.delay_0 = Time.time;
+            this.float_0 = 0.5f;
+            base.enabled = true;
+        }
+    }
+    public virtual void fadeOut(float time)
+    {
+        if (this.eLoading != eLoading.fadeOut)
+        {
+            this.eLoading = eLoading.fadeOut;
+            this.delay_0 = Time.time;
+            this.float_0 = time;
+            base.enabled = true;
+        }
+    }
     public virtual void Fade()
     {
         if (this.eLoading != eLoading.Fade)
@@ -49,6 +79,13 @@ public class LoadingGui : MonoBehaviour
                 color.a = a;
                 GUI.color = color;
                 GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1980f, 1080f), this.texture_0);
+                break;
+            case eLoading.fadeOut:
+                a = Mathf.Lerp(0f, 1f, (Time.time - this.delay_0) / this.float_0);
+                color = GUI.color;
+                color.a = a;
+                GUI.color = color;
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1920f, 1024f), this.texture_0);
                 break;
             case eLoading.Fade:
                 a = 2f * (this.delay_0 + 0.5f - Time.time);

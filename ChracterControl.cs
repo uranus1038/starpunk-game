@@ -7,6 +7,7 @@ public enum charType
 public class ChracterControl : MonoBehaviour
 {
     [SerializeField] protected int UID;
+    [SerializeField] protected int CID;
     [SerializeField] protected string Name;
     [SerializeField] protected string ownerGuild;
     [SerializeField] protected string ownerName;
@@ -51,7 +52,11 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected bool recieveRevive;
     [SerializeField] protected bool recieveGravity;
     [SerializeField] protected bool isMine;
+    [SerializeField] protected bool isActor;
+    [SerializeField] protected bool isMove;
     [SerializeField] protected string skin;
+    [SerializeField] protected string overlay;
+    [SerializeField] protected string hColor;
 
     [SerializeField] protected Vector3 myAttackPosition ;
     public ChracterControl()

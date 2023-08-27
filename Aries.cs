@@ -7,8 +7,6 @@ public class Aries : ChracterControl
     public static Leo mChar;
     private AnimationControl animate;
     private bool isGrounded;
-    private bool isCheck1;
-    private bool isCheck2;
     private CharacterController character;
     private GameObject cameraTransform;
     private float groundCheckRadius;
@@ -26,7 +24,7 @@ public class Aries : ChracterControl
     }
     private void Start()
     {
-        this.isMine = true;
+  
         this.groundCheckRadius = 0.2f;
     }
     void Update()
@@ -34,9 +32,20 @@ public class Aries : ChracterControl
         if (this.isMine)
         {
             this.playerControl();
+        }else
+        {
+            this.EventAction();
         }
-
-
+    }
+    private void EventAction()
+    {
+        this.animate.actionState = "root|ari_idel";
+        this.animate.PlayAnimation(this.animate.actionState);
+    }
+    private void EventAction(string nPos, Vector3 tDir)
+    {
+        this.animate.actionState = "root|ari_idel";
+        this.animate.PlayAnimation(this.animate.actionState);
     }
     private void playerControl()
     {
@@ -56,7 +65,7 @@ public class Aries : ChracterControl
         this.playerVelocity.y += -15.0f * Time.deltaTime;
         this.character.Move(playerVelocity * Time.deltaTime);
         //Add Animation
-        this.Addanimation();
+        this.Addanimation();    
 
         // Apply rotation
         this.PlayerRotation();
@@ -137,10 +146,9 @@ public class Aries : ChracterControl
         }
         if (displacement.magnitude < 0.001f && this.character.isGrounded)
         {
-            this.isCheck1 = false;
             this.animate.actionState = "root|ari_idel";
             this.animate.PlayAnimation(this.animate.actionState, 0.2f);
-            if (Time.time - 0.2f > this.animate.delay)
+            if (Time.time - 0.3f > this.animate.delay)
             {
                 this.animate.actionState = "root|ari_idel";
                 this.animate.PlayAnimation(this.animate.actionState);
@@ -150,9 +158,6 @@ public class Aries : ChracterControl
         this.previousPosition = currentPosition;
     }
 
-    public static void ActionEvent()
-    {
-
-    }
+   
 
 }

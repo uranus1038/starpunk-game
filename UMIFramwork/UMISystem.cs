@@ -12,6 +12,7 @@ namespace UMI
         private void Awake()
         {
             this.Init();
+          
         }
         public static void Log(string msg)
         {
@@ -31,10 +32,11 @@ namespace UMI
         }
         private void Update()
         {
-           if(Input.GetKey(KeyCode.F8)&& Input.GetKey(KeyCode.LeftControl))
+
+           if(Input.GetKey(KeyCode.F8)&& Input.GetKey(KeyCode.LeftControl) && !Game.isConsole)
             {
                 Game.isConsole = true;
-          
+                this.delay_0 = Time.time;
                 Log("true");
             }
         }
@@ -46,9 +48,9 @@ namespace UMI
             this.display_0 = (float)(1024 * Screen.width / Screen.height);
             if(Game.isConsole)
             {
-                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1980f, Mathf.Lerp(-1080f, 1080f, Time.time-1f)), this.texture_0);
+                GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, Mathf.Lerp(-1080f,0f,(Time.time - this.delay_0)*2f), 1980f, 1080f), this.texture_0);
             }
-
+                
         }
     }
 
