@@ -2,12 +2,12 @@
 public class CharacterClass 
 {
     public int slot; 
-    public int CID; 
     public string Name;
-    public string ownerGuild;
+    public int UID ; 
+    public string Guild;
     public string ownerName;
     public string myCommand;
-    public charType Type;
+    public charType type;
     public int str;
     public int agi;
     public int vit;
@@ -24,5 +24,11 @@ public class CharacterClass
     public int lv;
     public int exp;
     public int nexp;
+    public int[] bonus;
+    public int weight = 1;
+    public int runspeed = 1;
+    public int jumpForce = 1;
+    public int[] stat ;
+    public int[] bStat ;
 
 }

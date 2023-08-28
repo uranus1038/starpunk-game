@@ -26,4 +26,14 @@ public class Math : MonoBehaviour
         // ถ้าไม่เจอเลยในทุกระดับลูก จะคืนค่า null
         return null;
     }
+    public static void DestroyObject(int max ,GameObject[] gameObject)
+    {
+        for(int i =1;i<=max; i++)
+        {
+            if(gameObject[i] != null)
+            {
+                UnityEngine.GameObject.Destroy(gameObject[i]);
+            }
+        }
+    }
 }

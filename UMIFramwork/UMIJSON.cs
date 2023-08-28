@@ -6,15 +6,16 @@ namespace UMI.JSON
         // Handel Recive message json
         public string message;
         public string status;
-        public Data data = new();
-        public CharacterClass cDac1 = new();
-        public CharacterClass cDac2 = new();
+        public Data data;
+        public CharacterClass[] cDat1 ;
+        public CharacterClass[] cDat2  ;
         [System.Serializable]
         public class Data
         {
             public string userName;
             public int UID;
         }
+
         public UMIJSON UMIRespon(string data)
         {
             UMIJSON JSON = JsonUtility.FromJson<UMIJSON>(data);

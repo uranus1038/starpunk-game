@@ -12,7 +12,7 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected string ownerGuild;
     [SerializeField] protected string ownerName;
     [SerializeField] protected string myCommand;
-    [SerializeField] protected charType Type;
+    [SerializeField] protected charType type;
     [SerializeField] protected int str;
     [SerializeField] protected int agi;
     [SerializeField] protected int vit;
@@ -65,7 +65,7 @@ public class ChracterControl : MonoBehaviour
         this.ownerGuild = "none";
         this.ownerName = "none";
         this.myCommand = "none";
-        this.Type = charType.none;
+        this.type = charType.none;
         this.str = 8;
         this.agi = 8;
         this.vit = 8;

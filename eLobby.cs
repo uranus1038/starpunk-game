@@ -1,5 +1,12 @@
 public enum eLobby
 {
-    Init , 
    lobby , 
+   createChar , 
+   connected , 
+}
+
+public enum eLobbyMenu
+{
+    Init,
+    lobby,
 }

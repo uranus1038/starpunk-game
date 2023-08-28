@@ -2,8 +2,7 @@ using UnityEngine;
 public class Game 
 {
     public static bool isConsole  ;
-    public static bool isLoadDac  ;
-    public static string  typeCharacter;
+    public static bool isLoadDac  ; 
     public static void loadNextLevel(int mNextGameCode)
     {
         switch (mNextGameCode)
