@@ -104,7 +104,7 @@ public class CharacterDataClass
         int move = 0;
         switch (this.data.type)
         {
-            case charType.Leo:
+            case charType.Wolf:
                 move = 5;
                 jumpForce = 8;
                 break;
@@ -133,8 +133,8 @@ public class CharacterDataClass
         string result = string.Empty;
         switch (this.data.type)
         {
-            case charType.Leo:
-                result = "Leo";
+            case charType.Wolf:
+                result = "Wolf";
                 break;
         }
         return result;

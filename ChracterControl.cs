@@ -2,7 +2,7 @@ using UnityEngine;
 public enum charType
 {
     none ,
-    Leo , 
+    Wolf , 
 }
 public class ChracterControl : MonoBehaviour
 {
@@ -56,7 +56,6 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected bool isMove;
     [SerializeField] protected string skin;
     [SerializeField] protected string overlay;
-    [SerializeField] protected string hColor;
 
     [SerializeField] protected Vector3 myAttackPosition ;
     public ChracterControl()
@@ -93,6 +92,9 @@ public class ChracterControl : MonoBehaviour
         this.trinket = "none";
         this.pet = "none";
         this.hitMod = 1;
+        this.hate = 1;
+        this.skin = "standard";
+        this.overlay = "standard";
         this.hate = 1;
         this.myAttackPosition = Vector3.zero;
     }

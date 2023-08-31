@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UMI;
-public class Aries : ChracterControl
+public class Wolf : ChracterControl
 {
-    public static Leo mChar;
+    public static Wolf mChar; 
     private AnimationControl animate;
     private bool isGrounded;
     private CharacterController character;
@@ -19,17 +19,17 @@ public class Aries : ChracterControl
         this.animate = GetComponent<AnimationControl>();
         this.cameraTransform = GameObject.Find("Camera");
         this.previousPosition = this.character.transform.position;
-
-
+        
+       
     }
     private void Start()
     {
-  
+        this.isMine = true;
         this.groundCheckRadius = 0.2f;
     }
     void Update()
     {
-        if (this.isMine)
+        if(this.isMine)
         {
             this.playerControl();
         }else
@@ -39,12 +39,12 @@ public class Aries : ChracterControl
     }
     private void EventAction()
     {
-        this.animate.actionState = "root|ari_idel";
+        this.animate.actionState = "root|leo_idel";
         this.animate.PlayAnimation(this.animate.actionState);
     }
-    private void EventAction(string nPos, Vector3 tDir)
+    private void EventAction(string nPos , Vector3 tDir )
     {
-        this.animate.actionState = "root|ari_idel";
+        this.animate.actionState = "root|leo_idel";
         this.animate.PlayAnimation(this.animate.actionState);
     }
     private void playerControl()
@@ -60,12 +60,20 @@ public class Aries : ChracterControl
         if (Input.GetButtonDown("Jump"))
         {
             playerVelocity.y = Mathf.Sqrt(this.jumpForce * -1f * Physics.gravity.y);
+            if(this.animate.count == 0)
+            {
+                this.animate.count = 1;
+            }
+            else
+            {
+                this.animate.count = 0; 
+            }
         }
         // Apply Gravity
         this.playerVelocity.y += -15.0f * Time.deltaTime;
         this.character.Move(playerVelocity * Time.deltaTime);
         //Add Animation
-        this.Addanimation();    
+        this.Addanimation();
 
         // Apply rotation
         this.PlayerRotation();
@@ -123,17 +131,12 @@ public class Aries : ChracterControl
     }
     private void Addanimation()
     {
-        
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            this.animate.actionState = "root|ari_jump";
-            this.animate.PlayAnimation(this.animate.actionState, 0f, 1.5f);
-        }
         Vector3 currentPosition = character.transform.position;
         Vector3 displacement = currentPosition - previousPosition;
-        if (displacement.magnitude > 0.001f && this.character.isGrounded)
+        if(displacement.magnitude > 0.001f && this.character.isGrounded)
         {
-            this.animate.actionState = "root|ari_move";
+            this.animate.delay = Time.time;
+            this.animate.actionState = "root|leo_move";
             if (this.runSpeed < 12f)
             {
                 this.animate.PlayAnimation(this.animate.actionState, 0, 1f);
@@ -142,22 +145,33 @@ public class Aries : ChracterControl
             {
                 this.animate.PlayAnimation(this.animate.actionState, 0, 1.5f);
             }
-            this.animate.delay = Time.time;
         }
         if (displacement.magnitude < 0.001f && this.character.isGrounded)
         {
-            this.animate.actionState = "root|ari_idel";
-            this.animate.PlayAnimation(this.animate.actionState, 0.2f);
+            this.animate.actionState = "root|leo_idel";
+            this.animate.PlayAnimation(this.animate.actionState,0.2f);
             if (Time.time - 0.3f > this.animate.delay)
             {
-                this.animate.actionState = "root|ari_idel";
+                this.animate.actionState = "root|leo_idel";
                 this.animate.PlayAnimation(this.animate.actionState);
             }
         }
-      
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (this.animate.count == 0)
+            {
+                this.animate.actionState = "root|leo_jump_L";
+                this.animate.PlayAnimation(this.animate.actionState, 0f, 1.5f);
+            }
+            else
+            {
+                this.animate.actionState = "root|leo_jump_R";
+                this.animate.PlayAnimation(this.animate.actionState, 0f, 1.5f);
+            }
+        }
         this.previousPosition = currentPosition;
     }
 
-   
+    
 
 }
