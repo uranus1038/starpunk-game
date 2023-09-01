@@ -24,13 +24,13 @@ namespace UMI.API
                 if (reply.result == UnityWebRequest.Result.Success)
                 {
                     callback(reply.downloadHandler.text);
-                }
-                else
+                }else
                 {
-                    callback(reply.downloadHandler.text);
+                    callback(reply.error);
                 }
+               
             }
-
+            
         }
 
     }

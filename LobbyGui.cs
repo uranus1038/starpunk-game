@@ -27,7 +27,7 @@ public class LobbyGui : MonoBehaviour
             {
                 this.type_0 = CharacterDataClass.addType();
                 this.custume_0 = "Wolf";
-                this.player[i] = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load($"GameAssets/Characters/{this.type_0}/Custume/{this.custume_0}", typeof(GameObject)), this.spawnPosition[i], this.spawnRotation[i]);
+                this.player[i] = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load($"GameAssets/Characters/Heroes/{this.type_0}/Custumes/{this.custume_0}", typeof(GameObject)), this.spawnPosition[i], this.spawnRotation[i]);
                 this.player[i].name = "character" + i;
             }
             else
@@ -42,8 +42,8 @@ public class LobbyGui : MonoBehaviour
         this.spawnPosition = new Vector3[]
         {
           Vector3.zero ,
-          new Vector3(0f, 4.2f, 0f) ,
-          new Vector3(-5.5f, 4.2f, 1.5f)
+          new Vector3(0f, 3f, 0f) ,
+          new Vector3(-5.5f, 3f, 1.5f)
         };
         this.spawnRotation = new Quaternion[]
         {

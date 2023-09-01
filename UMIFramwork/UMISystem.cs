@@ -16,24 +16,24 @@ namespace UMI
         }
         public static void Log(string msg)
         {
-            print("UMI::"+msg);
+            print("UMILog::"+msg);
         }
         public static void Log(int[] msg)
         {
-            print("UMI::" + msg);
+            print("UMILog::" + msg);
         }
         public static void Log(int msg)
         {
-            print("UMI::" + msg);
+            print("UMILog::" + msg);
         }
         public static void Log(bool msg)
         {
-            print("UMI::" + msg);
+            print("UMILog::" + msg);
         }
 
         public static void LogList(string log ,string line ,string msg)
         {
-            print("["+System.DateTime.Now.ToString("H: mm") + "]"+"["+log+ "]"+"UMI::"+"("+line+ ")" + msg);
+            print("["+System.DateTime.Now.ToString("H: mm") + "]"+"["+log+ "]"+"UMILog::"+"("+line+ ")" + msg);
         }
         private void Init()
         {

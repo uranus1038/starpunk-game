@@ -106,7 +106,7 @@ public class CharacterDataClass
         {
             case charType.Wolf:
                 move = 3;
-                jumpForce = 8;
+                jumpForce = 5;
                 break;
             default:
                 move = 1;

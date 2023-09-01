@@ -31,11 +31,11 @@ public class LoginGui : MonoBehaviour
     }
     private void Init()
     {
-        this.texture_0 = (Texture)Resources.Load("GUI/Login/white", typeof(Texture));
+        this.texture_0 = (Texture)Resources.Load("GUI/Login/black", typeof(Texture));
 
         this.style_0 = new GUIStyle();
         this.style_0.font = (Font)Resources.Load("GUI/Fonts/Font", typeof(Font));
-        this.style_0.normal.textColor = new Color(0f, 0f, 0f, 1f);
+        this.style_0.normal.textColor = new Color(1f, 1f, 1f, 1f);
         this.style_0.fontSize = 20;
     }
     private void OnGUI()
@@ -157,7 +157,8 @@ public class LoginGui : MonoBehaviour
             UMIHashData.req = JSON.UMIRespon("{\"status\":\"202\"}");
             StartCoroutine(UMIGetLogin.star.GetLogin(this.email_0, this.QUk8sYq_x , UMIHashData.playerSetData));
             this.delay_0 = Time.time;
-            this.eLogin = eLogin.Loading;
+            //# edit
+            this.eLogin = eLogin.success;
         }
     }
     private void vetifyPlayer()
@@ -221,7 +222,9 @@ public class LoginGui : MonoBehaviour
     }
     private void OnJoinServer()
     {
-        StartCoroutine(UMIGetData.star.GetData(UMIHashData.hDac[01].ToString(), UMIHashData.playerLoadData));
+        //StartCoroutine(UMIGetData.star.GetData(UMIHashData.hDac[01].ToString(), UMIHashData.playerLoadData));
+        // # edit
+        StartCoroutine(UMIGetData.star.GetData("yo", UMIHashData.playerLoadData));
         //UMIClientManager.star.connectServer();
     }
     private void RenderNoticeMessage(string message)

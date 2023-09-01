@@ -47,8 +47,8 @@ namespace UMI.Data
         public static void playerLoadData(string data )
         {
             CharacterData.Init();
-            UMISystem.Log(data);
-            req = JSON.UMIRespon(data);
+            UMISystem.LogList("UMIHashData","50",data);
+            req = JSON.UMIRespon(Game.request);
             if(req.cDat1.Length == 0 && req.cDat2.Length == 0)
             {
                 CharacterData.Init();
