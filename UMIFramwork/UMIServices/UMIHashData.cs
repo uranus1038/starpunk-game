@@ -44,38 +44,38 @@ namespace UMI.Data
             }
 
         }
-        public static void playerLoadData(string data)
+        public static void playerLoadData(string data )
         {
             CharacterData.Init();
             UMISystem.Log(data);
-            // # Edit
-            req = JSON.UMIRespon(Game.request);
-            Debug.Log(req);
-            if (req.cDat1.Length == 0 && req.cDat2.Length == 0)
+            req = JSON.UMIRespon(data);
+            if(req.cDat1.Length == 0 && req.cDat2.Length == 0)
             {
                 CharacterData.Init();
             }
-            if (req.cDat1.Length > 0) 
             {
-                CharacterClass pDat1 = req.cDat1[0];
-                CharacterData.cDat1.setCdat(pDat1);
+                if (req.cDat1.Length > 0)
+                {
+                    CharacterClass pDat1 = req.cDat1[0];
+                    CharacterData.cDat1.setCdat(pDat1);
+                }
+                else
+                {
+                    CharacterData.cDat1.Init(1);
+                    UMISystem.LogList("UMIHashData", "63", "slot 1 none data");
+                }
+                if (req.cDat2.Length > 0)
+                {
+                    CharacterClass pDat2 = req.cDat2[0];
+                    CharacterData.cDat2.setCdat(pDat2);
+                }
+                else
+                {
+                    CharacterData.cDat2.Init(2);
+                    UMISystem.LogList("UMIHashData", "63", "slot 2 none data");
+                }
+                Game.isLoadDac = true;
             }
-            else
-            {
-                CharacterData.cDat1.Init(1);
-                UMISystem.LogList("UMIHashData", "63", "slot 1 none data");
-            }
-            if (req.cDat2.Length > 0)
-            {
-                CharacterClass pDat2 = req.cDat2[0];
-                CharacterData.cDat2.setCdat(pDat2);
-            }
-            else
-            {
-                CharacterData.cDat2.Init(2);
-                UMISystem.LogList("UMIHashData", "63", "slot 2 none data");
-            }
-            Game.isLoadDac = true;
         }
 
     }

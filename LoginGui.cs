@@ -31,11 +31,11 @@ public class LoginGui : MonoBehaviour
     }
     private void Init()
     {
-        this.texture_0 = (Texture)Resources.Load("GUI/Login/black", typeof(Texture));
+        this.texture_0 = (Texture)Resources.Load("GUI/Login/white", typeof(Texture));
 
         this.style_0 = new GUIStyle();
         this.style_0.font = (Font)Resources.Load("GUI/Fonts/Font", typeof(Font));
-        this.style_0.normal.textColor = new Color(1f, 1f, 1f, 1f);
+        this.style_0.normal.textColor = new Color(0f, 0f, 0f, 1f);
         this.style_0.fontSize = 20;
     }
     private void OnGUI()
@@ -152,13 +152,12 @@ public class LoginGui : MonoBehaviour
         this.email_0 = GUI.TextField(new Rect(0.5f * this.display_0 - 98f, 772f, 288f, 30f), this.email_0, 50);
         // Password Input
         this.QUk8sYq_x = GUI.PasswordField(new Rect(0.5f * this.display_0 - 98f, 812f, 288f, 30f), this.QUk8sYq_x, "*"[0], 20);
-        if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), "Submit คลิก", this.style_0))
+        if (GUI.Button(new Rect(0.5f * this.display_0 - 142f, 863f, 253f / 2f, 124f / 2f), "Submit", this.style_0))
         {
             UMIHashData.req = JSON.UMIRespon("{\"status\":\"202\"}");
             StartCoroutine(UMIGetLogin.star.GetLogin(this.email_0, this.QUk8sYq_x , UMIHashData.playerSetData));
             this.delay_0 = Time.time;
-            // # Edit
-            this.eLogin = eLogin.success;
+            this.eLogin = eLogin.Loading;
         }
     }
     private void vetifyPlayer()
@@ -222,8 +221,7 @@ public class LoginGui : MonoBehaviour
     }
     private void OnJoinServer()
     {
-       // StartCoroutine(UMIGetData.star.GetData(UMIHashData.hDac[01].ToString(), UMIHashData.playerLoadData));
-        StartCoroutine(UMIGetData.star.GetData("uranus", UMIHashData.playerLoadData));
+        StartCoroutine(UMIGetData.star.GetData(UMIHashData.hDac[01].ToString(), UMIHashData.playerLoadData));
         //UMIClientManager.star.connectServer();
     }
     private void RenderNoticeMessage(string message)

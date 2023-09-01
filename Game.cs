@@ -1,7 +1,7 @@
 using UnityEngine; 
 public class Game 
 {
-    public static string request = "{\"cDat1\":[\"{\"type\":1\"} ,\"{\"UID\":1 \"}]}";
+    public static string request = "{\"cDat1\":[{\"type\":1 ,\"UID\":1 }]}";
     public static bool isConsole  ;
     public static bool isLoadDac  ; 
     public static void loadNextLevel(int mNextGameCode)
