@@ -26,7 +26,7 @@ public class LobbyGui : MonoBehaviour
             if (CharacterDataClass.getUID() != -1)
             {
                 this.type_0 = CharacterDataClass.addType();
-                this.custume_0 = "Leo";
+                this.custume_0 = "Wolf";
                 this.player[i] = (GameObject)UnityEngine.Object.Instantiate((GameObject)Resources.Load($"GameAssets/Characters/{this.type_0}/Custume/{this.custume_0}", typeof(GameObject)), this.spawnPosition[i], this.spawnRotation[i]);
                 this.player[i].name = "character" + i;
             }

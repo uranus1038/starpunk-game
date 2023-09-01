@@ -105,7 +105,7 @@ public class CharacterDataClass
         switch (this.data.type)
         {
             case charType.Wolf:
-                move = 5;
+                move = 3;
                 jumpForce = 8;
                 break;
             default:

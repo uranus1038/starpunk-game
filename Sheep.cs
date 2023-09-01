@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UMI;
-public class Sheep : ChracterControl
+public class Sheep : CharacterControl
 {
     public static Sheep mChar;
     private AnimationControl animate;

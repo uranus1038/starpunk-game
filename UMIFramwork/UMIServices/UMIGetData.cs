@@ -27,7 +27,7 @@ namespace UMI.API
                 }
                 else
                 {
-                    
+                    callback(reply.downloadHandler.text);
                 }
             }
 

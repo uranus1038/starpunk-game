@@ -13,6 +13,7 @@ public class AnimationControl : MonoBehaviour
 {
     private Animator actor; 
     public float delay;
+    public float[] next ; 
     public string actionCurrent; 
     public string actionState;
     public int count;

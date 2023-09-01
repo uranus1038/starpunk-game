@@ -4,7 +4,7 @@ public enum charType
     none ,
     Wolf , 
 }
-public class ChracterControl : MonoBehaviour
+public class CharacterControl : MonoBehaviour
 {
     [SerializeField] protected int UID;
     [SerializeField] protected int CID;
@@ -58,7 +58,7 @@ public class ChracterControl : MonoBehaviour
     [SerializeField] protected string overlay;
 
     [SerializeField] protected Vector3 myAttackPosition ;
-    public ChracterControl()
+    public CharacterControl()
     {
         this.Name = "none"; 
         this.ownerGuild = "none";

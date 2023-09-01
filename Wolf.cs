@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UMI;
-public class Wolf : ChracterControl
+public class Wolf : CharacterControl
 {
-    public static Wolf mChar; 
+    public static Wolf mChar;
     private AnimationControl animate;
     private bool isGrounded;
     private CharacterController character;
@@ -19,32 +19,35 @@ public class Wolf : ChracterControl
         this.animate = GetComponent<AnimationControl>();
         this.cameraTransform = GameObject.Find("Camera");
         this.previousPosition = this.character.transform.position;
-        
-       
+        this.animate.next = new float[5];
     }
     private void Start()
     {
+        ((WolfEquipment)GetComponent(typeof(WolfEquipment))).EquipWeapon("SwordStandard");
         this.isMine = true;
         this.groundCheckRadius = 0.2f;
+        this.animate.next[1] = Time.time;
+        this.animate.next[2] = Time.time;
     }
     void Update()
     {
-        if(this.isMine)
+        if (this.isMine)
         {
             this.playerControl();
-        }else
+        }
+        else
         {
             this.EventAction();
         }
     }
     private void EventAction()
     {
-        this.animate.actionState = "root|leo_idel";
+        this.animate.actionState = "rig|wlf_run";
         this.animate.PlayAnimation(this.animate.actionState);
     }
-    private void EventAction(string nPos , Vector3 tDir )
+    private void EventAction(string nPos, Vector3 tDir)
     {
-        this.animate.actionState = "root|leo_idel";
+        this.animate.actionState = "rig|wlf_run";
         this.animate.PlayAnimation(this.animate.actionState);
     }
     private void playerControl()
@@ -59,18 +62,19 @@ public class Wolf : ChracterControl
         this.isGrounded = Physics.CheckSphere(transform.position, groundCheckRadius, groundLayer);
         if (Input.GetButtonDown("Jump"))
         {
+            //level hight
             playerVelocity.y = Mathf.Sqrt(this.jumpForce * -1f * Physics.gravity.y);
-            if(this.animate.count == 0)
+            if (this.animate.count == 0)
             {
                 this.animate.count = 1;
             }
             else
             {
-                this.animate.count = 0; 
+                this.animate.count = 0;
             }
         }
-        // Apply Gravity
-        this.playerVelocity.y += -15.0f * Time.deltaTime;
+        // Apply Gravity (Fall gravity)
+        this.playerVelocity.y += Physics.gravity.y * Time.deltaTime;
         this.character.Move(playerVelocity * Time.deltaTime);
         //Add Animation
         this.Addanimation();
@@ -133,26 +137,37 @@ public class Wolf : ChracterControl
     {
         Vector3 currentPosition = character.transform.position;
         Vector3 displacement = currentPosition - previousPosition;
-        if(displacement.magnitude > 0.001f && this.character.isGrounded)
+        if (displacement.magnitude > 0.001f && this.character.isGrounded)
         {
-            this.animate.delay = Time.time;
-            this.animate.actionState = "root|leo_move";
+            // move
+            this.animate.next[1] = Time.time;
+            this.animate.actionState = "rig|wlf_run";
             if (this.runSpeed < 12f)
             {
-                this.animate.PlayAnimation(this.animate.actionState, 0, 1f);
+                this.animate.PlayAnimation(this.animate.actionState, 0.1f, 1f);
+                if (Time.time - 0.2f > this.animate.next[2])
+                {
+                    this.animate.PlayAnimation(this.animate.actionState, 0f, 1f);
+                }
+
             }
             else
             {
-                this.animate.PlayAnimation(this.animate.actionState, 0, 1.5f);
+                this.animate.PlayAnimation(this.animate.actionState, 0.1f, 1f);
+                if (Time.time - 0.2f > this.animate.next[2])
+                {
+                    this.animate.PlayAnimation(this.animate.actionState, 0f, 1.5f);
+                }
+
             }
         }
         if (displacement.magnitude < 0.001f && this.character.isGrounded)
         {
-            this.animate.actionState = "root|leo_idel";
-            this.animate.PlayAnimation(this.animate.actionState,0.2f);
-            if (Time.time - 0.3f > this.animate.delay)
+            this.animate.next[2] = Time.time;
+            this.animate.actionState = "rig|wlf_idel";
+            this.animate.PlayAnimation(this.animate.actionState, 0.2f);
+            if (Time.time - 0.3f > this.animate.next[1])
             {
-                this.animate.actionState = "root|leo_idel";
                 this.animate.PlayAnimation(this.animate.actionState);
             }
         }
@@ -160,18 +175,19 @@ public class Wolf : ChracterControl
         {
             if (this.animate.count == 0)
             {
-                this.animate.actionState = "root|leo_jump_L";
-                this.animate.PlayAnimation(this.animate.actionState, 0f, 1.5f);
+                // jump
+                this.animate.actionState = "rig|wlf_jump_L";
+                this.animate.PlayAnimation(this.animate.actionState, 0f, 1f);
             }
             else
             {
-                this.animate.actionState = "root|leo_jump_R";
-                this.animate.PlayAnimation(this.animate.actionState, 0f, 1.5f);
+                this.animate.actionState = "rig|wlf_jump_R";
+                this.animate.PlayAnimation(this.animate.actionState, 0f, 1f);
             }
         }
         this.previousPosition = currentPosition;
     }
 
-    
+
 
 }
