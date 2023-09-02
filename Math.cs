@@ -26,6 +26,19 @@ public class Math : MonoBehaviour
         // ถ้าไม่เจอเลยในทุกระดับลูก จะคืนค่า null
         return null;
     }
+    public static Color HexToColor(string hex)
+    {
+        Color color = Color.black;
+        if (ColorUtility.TryParseHtmlString(hex, out color))
+        {
+            return color;
+        }
+        else
+        {
+            Debug.LogError("Invalid hex color code: " + hex);
+            return Color.black;
+        }
+    }
     public static void DestroyObject(int max ,GameObject[] gameObject)
     {
         for(int i =1;i<=max; i++)

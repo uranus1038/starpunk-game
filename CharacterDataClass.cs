@@ -126,7 +126,7 @@ public class CharacterDataClass
     }
     public int getSlot()
     {
-        return this.data.UID;
+        return this.data.slot;
     }
     public  string addType()
     {

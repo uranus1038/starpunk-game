@@ -63,6 +63,7 @@ public class LobbyGui : MonoBehaviour
     void Start()
     {
         this.delay_0 = Time.time;
+        this.loading.fadeIn();
     }
     private void Awake()
     {
