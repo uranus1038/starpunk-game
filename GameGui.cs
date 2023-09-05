@@ -4,15 +4,182 @@ using UnityEngine;
 
 public class GameGui : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private float display_0;
+    private float display_1;
+    private bool isGame; 
+    private Texture2D texture_0;
+    private Texture2D texture_1;
+    private Texture2D texture_2;
+    private Texture2D texture_3;
+    private Texture2D texture_4;
+    private Texture2D texture_5;
+    private Texture2D texture_6;
+    private Texture2D texture_7;
+
+    private GUIStyle style_0;
+    private GUIStyle style_1;
+    private GUIStyle style_2;
+    private GUIStyle style_3;
+    private GUIStyle style_4;
+    private GUIStyle style_5;
+    private GUIStyle style_6;
+    private void Init()
+    {
+        this.isGame = true;
+        this.InitChracterOption();
+        this.InitStatusbar();
+        this.InitWorldMap();
+        this.InitSkillBar();
+    }
+    private void InitChracterOption()
+    {
+        this.texture_0 = (Texture2D)Resources.Load("GUI/Game/CharacterBg", typeof(Texture2D));
+        this.texture_1 = (Texture2D)Resources.Load("GUI/Game/useBar", typeof(Texture2D));
+        this.texture_2 = (Texture2D)Resources.Load("GUI/Game/HPMPSPMX", typeof(Texture2D));
+        this.texture_3 = (Texture2D)Resources.Load("GUI/Game/HPMPSPTX", typeof(Texture2D));
+        this.texture_4 = (Texture2D)Resources.Load("GUI/Characters/Wolf", typeof(Texture2D));
+
+        this.style_0 = new GUIStyle(); 
+        this.style_0.hover.background = (Texture2D)Resources.Load("GUI/Game/bagIcon_h", typeof(Texture2D));  
+        this.style_1 = new GUIStyle(); 
+        this.style_1.hover.background = (Texture2D)Resources.Load("GUI/Game/statusIcon_h", typeof(Texture2D));
+        this.style_2 = new GUIStyle();
+        this.style_2.hover.background = (Texture2D)Resources.Load("GUI/Game/skillIcon_h", typeof(Texture2D));
+        this.style_3 = new GUIStyle();
+        this.style_3.hover.background = (Texture2D)Resources.Load("GUI/Game/networkIcon_h", typeof(Texture2D));
+    }
+    private void InitSkillBar()
+    {
+        this.texture_7 = (Texture2D)Resources.Load("GUI/SkillCharacter/Wolf/Skill_Basic_Wolf", typeof(Texture2D));
+
+        this.style_4 = new GUIStyle();
+        this.style_4.hover.background = (Texture2D)Resources.Load("GUI/Game/AButton_h", typeof(Texture2D));
+
+        this.style_5 = new GUIStyle();
+        this.style_5.hover.background = (Texture2D)Resources.Load("GUI/Game/BButton_h", typeof(Texture2D));
+
+        this.style_6 = new GUIStyle();
+        this.style_6.hover.background = (Texture2D)Resources.Load("GUI/Game/BasicButton_h", typeof(Texture2D));
+
+    }
+    private void InitStatusbar()
+    {
+        this.texture_6 = (Texture2D)Resources.Load("GUI/Game/StatusBar", typeof(Texture2D));
+    }
+    private void InitWorldMap()
+    {
+        this.texture_5 = (Texture2D)Resources.Load("GUI/Game/MiniMap", typeof(Texture2D));
+    }
     void Start()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
+    private void Awake()
+    {
+        this.Init();
+    }
+    private void OnGUI()
+    {
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
+        GUI.depth = 2;
+        this.display_0 = (float)(1024 * Screen.width / Screen.height);
+        this.display_1 = (float)Screen.height / 1024f;
+        if(this.isGame)
+        {
+            this.RenderChracterUse();
+            this.RenderStatusBar();
+            this.RenderSkillBar();
+        }
+    }
+    private void RenderChracterUse()
+    {
+        // # character bar
+        GUI.DrawTexture(new Rect(0f, this.display_1 + 799, 445, 225f), this.texture_0);
+        // # use bar
+        GUI.DrawTexture(new Rect(1f * this.display_0 - 1167f, this.display_1 + 844f, 1168f, 180f), this.texture_1);
+        // # h bag
+        if(GUI.Button(new Rect(1f * this.display_0 - 144f, this.display_1 + 905f, 60f, 50f) , string.Empty, this.style_0))
+        {
+           
+        }
+        // # h status
+        if (GUI.Button(new Rect(1f * this.display_0 - 67f, this.display_1 + 905f, 60f, 50f), string.Empty, this.style_1))
+        {
+            if (!Game.isOption[0])
+            {
+                Game.isOption[0] = true;
+                Game.isOption[2] = false;
+            }
+            else
+            {
+                Game.isOption[0] = false;
+            }
+        }
+        // # h skill
+        if (GUI.Button(new Rect(1f * this.display_0 - 144f, this.display_1 + 962f, 60f, 50f), string.Empty, this.style_2))
+        {
+            if (!Game.isOption[2])
+            {
+                Game.isOption[2] = true;
+                Game.isOption[0] = false;
+            }
+            else
+            {
+                Game.isOption[2] = false;
+            }
+        }
+        // # h network
+        if (GUI.Button(new Rect(1f * this.display_0 - 67f, this.display_1 + 962f, 60f, 50f), string.Empty, this.style_3))
+        {
+
+        }
+        // # HPMPSP bar
+        GUI.DrawTexture(new Rect(155f, this.display_1 + 928f, 230f, 90f), this.texture_2);
+        // # Character
+        GUI.DrawTexture(new Rect(0f, this.display_1 + 680f, 300f, 380f), this.texture_4);
+        // #HPMPSPTX text
+        GUI.DrawTexture(new Rect(155f, this.display_1 + 928, 230f, 90f), this.texture_3);
+        // # MiniMap
+        GUI.DrawTexture(new Rect(0, 0, 360f, 250f), this.texture_5);
+    }
+    private void RenderStatusBar()
+    {
+        if(Game.isOption[0])
+        {
+            // # StatusBar
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 18f, 450f, 450f), this.texture_6);
+
+        }
+    }
+    private void RenderSkillBar()
+    {
+        if (Game.isOption[2])
+        {
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 78f, 450f, 820f), this.texture_7);
+            if (GUI.Button(new Rect(1f * this.display_0 - 357f, this.display_1 + 121f, 81f, 35f), string.Empty, this.style_5))
+            {
+
+            }
+            if (GUI.Button(new Rect(1f * this.display_0 - 413f, this.display_1 + 121f, 81f, 35f), string.Empty, this.style_4))
+            {
+                UMI.UMISystem.Log("Button 1 Clicked");
+            }
+            if (GUI.Button(new Rect(1f * this.display_0 - 480f, this.display_1 + 121f, 81f, 35f),string.Empty ,this.style_6))
+            {
+                UMI.UMISystem.Log("Button 2 Clicked");
+            }
+        }
+    }
+    private void RenderTest()
+    {
+        //Rect keyCodeNumber = new Rect(1f * this.display_0 - 1167f, this.display_1 + 844f, 1168f, 180f);
+        //GUI.BeginGroup(keyCodeNumber);
+        //GUILayout.BeginHorizontal();
+        //GUILayout.BeginArea(new Rect(0, 0, 100, keyCodeNumber.height));
+        //GUILayout.Button("Button 1");
+        //GUILayout.EndArea();
+        //GUILayout.EndHorizontal();
+        //GUI.EndGroup();
+    }
+    
 }

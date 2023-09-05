@@ -58,9 +58,9 @@ public class PlayerCameraControl : MonoBehaviour
 		}
 		//RightClick
 		if (Input.GetAxis("Mouse X") < 0 && Input.GetMouseButton(1))
-			this.rotation=this.rotation -4f;
+			this.rotation=this.rotation -8f;
 		if (Input.GetAxis("Mouse X") > 0 && Input.GetMouseButton(1))
-			this.rotation=this.rotation +4f;
+			this.rotation=this.rotation +8f;
 		if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) 
 			&& Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) && !Input.GetMouseButton(1))
 			this.rotation++;

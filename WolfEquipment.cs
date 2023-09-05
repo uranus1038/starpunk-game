@@ -20,7 +20,7 @@ public class WolfEquipment : MonoBehaviour
             this.weaponInit = (GameObject)UnityEngine.Object.Instantiate(weaponObj, Vector3.zero, Quaternion.identity);
             this.weaponInit.transform.parent = global::Math.findChildObject(this.gameObject.transform,"Hand.R");
             this.weaponInit.transform.localPosition = new Vector3(0.0016f, 0.0087f , 0.0181f);
-            this.weaponInit.transform.localRotation = Quaternion.Euler(181.187f, -27.35999f, -109.006f);
+            this.weaponInit.transform.localRotation = Quaternion.Euler(181f, -27f, -109f);
             this.weaponInit.transform.localScale = Vector3.one;
             this.weaponInit.name = "Weapon"; 
         }

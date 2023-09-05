@@ -35,7 +35,7 @@ public class CharacterControl : MonoBehaviour
     [SerializeField][Range(0,15)] protected float jumpForce;
     [SerializeField] protected string weapon;
     [SerializeField] protected string armor;
-    [SerializeField] protected string headgear;
+    [SerializeField] protected string head;
     [SerializeField] protected string boot;
     [SerializeField] protected string trinket;
     [SerializeField] protected string pet;
@@ -56,6 +56,9 @@ public class CharacterControl : MonoBehaviour
     [SerializeField] protected bool isMove;
     [SerializeField] protected string skin;
     [SerializeField] protected string overlay;
+
+    private float display_0 ;
+    public Texture texture_0;
 
     [SerializeField] protected Vector3 myAttackPosition ;
     public CharacterControl()
@@ -87,7 +90,7 @@ public class CharacterControl : MonoBehaviour
         this.jumpForce = 5f;
         this.weapon = "none";
         this.armor = "none";
-        this.headgear = "none";
+        this.head = "none";
         this.boot = "none";
         this.trinket = "none";
         this.pet = "none";
@@ -98,9 +101,12 @@ public class CharacterControl : MonoBehaviour
         this.hate = 1;
         this.myAttackPosition = Vector3.zero;
     }
+    private void Init()
+    {
+    }
     private void Awake()
     {
-        
+        this.Init();
     }
     private void Start()
     {
@@ -112,10 +118,99 @@ public class CharacterControl : MonoBehaviour
     }
     private void OnGUI()
     {
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
+        GUI.depth = 2;
+        this.display_0 = (float)(1024 * Screen.width / Screen.height);
+        //GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1980f, 1080f), this.texture_0);
 
     }
     public void hit(int a , int b)
     {
         this.lck = a + b;
+    }
+    protected virtual void GameControl()
+    {
+        //* # 0 = status
+        //  # 1 = item
+        //  # 2 = skill
+        //*//
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if (!Game.isOption[0])
+            {
+                Game.isOption[0] = true;
+                Game.isOption[2] = false;
+            }else
+            {
+                Game.isOption[0] = false;
+            }
+           
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (!Game.isOption[1])
+            {
+                Game.isOption[1] = true;
+            }
+            else
+            {
+                Game.isOption[1] = false;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            if (!Game.isOption[2])
+            {
+                Game.isOption[2] = true;
+                Game.isOption[0] = false;
+            }
+            else
+            {
+                Game.isOption[2] = false;
+            }
+        }
+    }
+    protected virtual void PlayerRotation(GameObject mCam)
+    {
+        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y, 0f);
+        }
+        if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y - 180f, 0f);
+
+        }
+        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y + 90f, 0f);
+
+        }
+        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y - 90f, 0f);
+
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y + 45f, 0f);
+
+        }
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y - 45f, 0f);
+
+
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y + 135f, 0f);
+
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y - 135f, 0f);
+
+        }
     }
 }

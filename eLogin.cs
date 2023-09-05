@@ -10,7 +10,7 @@ public enum eLogin
     down,
     timeOut,
     NotFound,
-    selectServer,
+    selectRealm,
     success,
     isFull , 
     serveOut ,

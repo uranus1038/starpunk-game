@@ -4,6 +4,7 @@ public class Game
     public static string request = "{\"cDat1\":[{\"type\":1,\"UID\":-1}],\"cDat2\":[{\"type\":1,\"UID\":1}]}";
     public static bool isConsole  ;
     public static bool isLoadDac  ;     
+    public static bool[] isOption = new bool[10]  ;         
     public static void loadNextLevel(int mNextGameCode)
     {
         switch (mNextGameCode)

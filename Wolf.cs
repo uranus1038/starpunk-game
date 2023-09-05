@@ -15,11 +15,16 @@ public class Wolf : CharacterControl
     public LayerMask groundLayer;
     private void Awake()
     {
+        this.InitGui();
         this.character = (CharacterController)this.GetComponent(typeof(CharacterController));
         this.animate = GetComponent<AnimationControl>();
         this.cameraTransform = GameObject.Find("Camera");
         this.previousPosition = this.character.transform.position;
         this.animate.next = new float[5];
+    }
+    private void InitGui()
+    {
+
     }
     private void Start()
     {
@@ -34,6 +39,7 @@ public class Wolf : CharacterControl
         if (this.isMine)
         {
             this.playerControl();
+            this.GameControl();
         }
         else
         {
@@ -80,59 +86,10 @@ public class Wolf : CharacterControl
         this.Addanimation();
 
         // Apply rotation
-        this.PlayerRotation();
+        this.PlayerRotation(this.cameraTransform);
 
     }
-    private void PlayerRotation()
-    {
-        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y, 0f);
-        }
-        if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y - 180f, 0f);
-
-        }
-        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y + 90f, 0f);
-
-        }
-        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y - 90f, 0f);
-
-        }
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y + 45f, 0f);
-
-        }
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y - 45f, 0f);
-
-
-        }
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y + 135f, 0f);
-
-        }
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            transform.rotation = Quaternion.Euler(0f, cameraTransform.transform.eulerAngles.y - 135f, 0f);
-
-
-        }
-
-
-        if (Input.GetKey(KeyCode.E))
-        {
-
-        }
-    }
+    
     private void Addanimation()
     {
         Vector3 currentPosition = character.transform.position;
@@ -188,6 +145,13 @@ public class Wolf : CharacterControl
         this.previousPosition = currentPosition;
     }
 
-
+    protected override void PlayerRotation(GameObject mCam)
+    {
+        base.PlayerRotation(mCam);
+    }
+    protected override void GameControl()
+    {
+        base.GameControl();
+    }
 
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq; 
 public class Math : MonoBehaviour
 {
     public static Transform findChildObject(Transform parent, string childName)
@@ -48,5 +48,10 @@ public class Math : MonoBehaviour
                 UnityEngine.GameObject.Destroy(gameObject[i]);
             }
         }
+    }
+
+    public static bool[] BoolAllArray(bool[] nAarry)
+    {
+        return nAarry.Select(isCheck => false).ToArray();
     }
 }
