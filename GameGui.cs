@@ -6,7 +6,11 @@ public class GameGui : MonoBehaviour
 {
     private float display_0;
     private float display_1;
-    private bool isGame; 
+    private bool isGame;
+    private bool isTrue;
+    private bool isTexture;
+    private IconClass Icon;
+    private HoverClass hover_0;
     private Texture2D texture_0;
     private Texture2D texture_1;
     private Texture2D texture_2;
@@ -15,6 +19,8 @@ public class GameGui : MonoBehaviour
     private Texture2D texture_5;
     private Texture2D texture_6;
     private Texture2D texture_7;
+    private Texture2D texture_8;
+    private Texture2D texture_9;
 
     private GUIStyle style_0;
     private GUIStyle style_1;
@@ -25,11 +31,16 @@ public class GameGui : MonoBehaviour
     private GUIStyle style_6;
     private void Init()
     {
+        this.hover_0 = new HoverClass();
+        this.Icon = new IconClass();
+        this.Icon.image = (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D));
         this.isGame = true;
         this.InitChracterOption();
         this.InitStatusbar();
         this.InitWorldMap();
         this.InitSkillBar();
+        this.InitNetworkBar();
+        this.InitInventory();
     }
     private void InitChracterOption()
     {
@@ -38,7 +49,6 @@ public class GameGui : MonoBehaviour
         this.texture_2 = (Texture2D)Resources.Load("GUI/Game/HPMPSPMX", typeof(Texture2D));
         this.texture_3 = (Texture2D)Resources.Load("GUI/Game/HPMPSPTX", typeof(Texture2D));
         this.texture_4 = (Texture2D)Resources.Load("GUI/Characters/Wolf", typeof(Texture2D));
-
         this.style_0 = new GUIStyle(); 
         this.style_0.hover.background = (Texture2D)Resources.Load("GUI/Game/bagIcon_h", typeof(Texture2D));  
         this.style_1 = new GUIStyle(); 
@@ -70,6 +80,14 @@ public class GameGui : MonoBehaviour
     {
         this.texture_5 = (Texture2D)Resources.Load("GUI/Game/MiniMap", typeof(Texture2D));
     }
+    private void InitNetworkBar()
+    {
+        this.texture_8 = (Texture2D)Resources.Load("GUI/Game/NetworkBar", typeof(Texture2D));
+    }
+    private void InitInventory()
+    {
+        this.texture_9 = (Texture2D)Resources.Load("GUI/Game/InventoryBar", typeof(Texture2D));
+    }
     void Start()
     {
 
@@ -77,6 +95,10 @@ public class GameGui : MonoBehaviour
     private void Awake()
     {
         this.Init();
+    }
+    private void Update()
+    {
+       
     }
     private void OnGUI()
     {
@@ -86,53 +108,21 @@ public class GameGui : MonoBehaviour
         this.display_1 = (float)Screen.height / 1024f;
         if(this.isGame)
         {
+            this.RenderNetWorkBar();
             this.RenderChracterUse();
             this.RenderStatusBar();
             this.RenderSkillBar();
+            this.RenderInventory();
         }
     }
     private void RenderChracterUse()
     {
         // # character bar
         GUI.DrawTexture(new Rect(0f, this.display_1 + 799, 445, 225f), this.texture_0);
-        // # use bar
+        // # Item bar
         GUI.DrawTexture(new Rect(1f * this.display_0 - 1167f, this.display_1 + 844f, 1168f, 180f), this.texture_1);
-        // # h bag
-        if(GUI.Button(new Rect(1f * this.display_0 - 144f, this.display_1 + 905f, 60f, 50f) , string.Empty, this.style_0))
-        {
-           
-        }
-        // # h status
-        if (GUI.Button(new Rect(1f * this.display_0 - 67f, this.display_1 + 905f, 60f, 50f), string.Empty, this.style_1))
-        {
-            if (!Game.isOption[0])
-            {
-                Game.isOption[0] = true;
-                Game.isOption[2] = false;
-            }
-            else
-            {
-                Game.isOption[0] = false;
-            }
-        }
-        // # h skill
-        if (GUI.Button(new Rect(1f * this.display_0 - 144f, this.display_1 + 962f, 60f, 50f), string.Empty, this.style_2))
-        {
-            if (!Game.isOption[2])
-            {
-                Game.isOption[2] = true;
-                Game.isOption[0] = false;
-            }
-            else
-            {
-                Game.isOption[2] = false;
-            }
-        }
-        // # h network
-        if (GUI.Button(new Rect(1f * this.display_0 - 67f, this.display_1 + 962f, 60f, 50f), string.Empty, this.style_3))
-        {
-
-        }
+        
+        this.GUIControl(); 
         // # HPMPSP bar
         GUI.DrawTexture(new Rect(155f, this.display_1 + 928f, 230f, 90f), this.texture_2);
         // # Character
@@ -142,18 +132,23 @@ public class GameGui : MonoBehaviour
         // # MiniMap
         GUI.DrawTexture(new Rect(0, 0, 360f, 250f), this.texture_5);
     }
+    private void RenderInventory()
+    {
+        if(Game.eInventory == eInventory.Active)
+        {
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 450f, 450f, 410f), this.texture_9);
+        }
+    }   
     private void RenderStatusBar()
     {
-        if(Game.isOption[0])
+        if(Game.eMenu == eMenuOptionState.Status)
         {
-            // # StatusBar
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 18f, 450f, 450f), this.texture_6);
-
         }
     }
     private void RenderSkillBar()
     {
-        if (Game.isOption[2])
+        if (Game.eMenu == eMenuOptionState.Skill)
         {
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 78f, 450f, 820f), this.texture_7);
             if (GUI.Button(new Rect(1f * this.display_0 - 357f, this.display_1 + 121f, 81f, 35f), string.Empty, this.style_5))
@@ -167,6 +162,67 @@ public class GameGui : MonoBehaviour
             if (GUI.Button(new Rect(1f * this.display_0 - 480f, this.display_1 + 121f, 81f, 35f),string.Empty ,this.style_6))
             {
                 UMI.UMISystem.Log("Button 2 Clicked");
+            }
+        }
+    }
+    private void RenderNetWorkBar()
+    {
+        if (Game.eMenu == eMenuOptionState.Network)
+        {
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 419f, this.display_1 + 420f, 420f, 605f), this.texture_8);
+        }
+    }
+    private void GUIControl()
+    {
+        // # h Inventory
+        if (GUI.Button(new Rect(1f * this.display_0 - 144f, this.display_1 + 905f, 60f, 50f), string.Empty, this.style_0))
+        {
+            if (Game.eInventory != eInventory.Active)
+            {
+                Game.eInventory = eInventory.Active;
+                Game.eMenu = eMenuOptionState.Status;
+            }
+            else
+            {
+                Game.eInventory = eInventory.none;
+            }
+        }
+        // # h status
+        if (GUI.Button(new Rect(1f * this.display_0 - 67f, this.display_1 + 905f, 60f, 50f), string.Empty, this.style_1))
+        {
+            if (Game.eMenu != eMenuOptionState.Status)
+            {
+                Game.eMenu = eMenuOptionState.Status;
+            }
+            else
+            {
+                Game.eMenu = eMenuOptionState.Game;
+            }
+        }
+        // # h skill
+        if (GUI.Button(new Rect(1f * this.display_0 - 144f, this.display_1 + 962f, 60f, 50f), string.Empty, this.style_2))
+        {
+            if (Game.eMenu != eMenuOptionState.Skill)
+            {
+                Game.eMenu = eMenuOptionState.Skill;
+                Game.eInventory = eInventory.none;
+            }
+            else
+            {
+                Game.eMenu = eMenuOptionState.Game;
+            }
+        }
+        // # h network
+        if (GUI.Button(new Rect(1f * this.display_0 - 67f, this.display_1 + 962f, 60f, 50f), string.Empty, this.style_3))
+        {
+            if (Game.eMenu != eMenuOptionState.Network)
+            {
+                Game.eMenu = eMenuOptionState.Network;
+                Game.eInventory = eInventory.none;
+            }
+            else
+            {
+                Game.eMenu = eMenuOptionState.Game;
             }
         }
     }

@@ -57,7 +57,8 @@ public class CharacterControl : MonoBehaviour
     [SerializeField] protected string skin;
     [SerializeField] protected string overlay;
 
-    private float display_0 ;
+    public float display_0 ;
+    public float display_1 ;
     public Texture texture_0;
 
     [SerializeField] protected Vector3 myAttackPosition ;
@@ -100,6 +101,7 @@ public class CharacterControl : MonoBehaviour
         this.overlay = "standard";
         this.hate = 1;
         this.myAttackPosition = Vector3.zero;
+        Game.eMenu = eMenuOptionState.Game; 
     }
     private void Init()
     {
@@ -116,57 +118,57 @@ public class CharacterControl : MonoBehaviour
     {
         
     }
-    private void OnGUI()
-    {
-        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
-        GUI.depth = 2;
-        this.display_0 = (float)(1024 * Screen.width / Screen.height);
-        //GUI.DrawTexture(new Rect(0.5f * this.display_0 - 960f, 0f, 1980f, 1080f), this.texture_0);
-
-    }
     public void hit(int a , int b)
     {
         this.lck = a + b;
     }
     protected virtual void GameControl()
     {
-        //* # 0 = status
-        //  # 1 = item
-        //  # 2 = skill
-        //*//
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            if (!Game.isOption[0])
+            if(Game.eMenu != eMenuOptionState.Status)
             {
-                Game.isOption[0] = true;
-                Game.isOption[2] = false;
-            }else
-            {
-                Game.isOption[0] = false;
-            }
-           
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            if (!Game.isOption[1])
-            {
-                Game.isOption[1] = true;
+                Game.eMenu = eMenuOptionState.Status;
             }
             else
             {
-                Game.isOption[1] = false;
+                Game.eMenu = eMenuOptionState.Game;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (Game.eInventory != eInventory.Active)
+            {
+                Game.eMenu = eMenuOptionState.Status;
+                Game.eInventory = eInventory.Active;
+            }
+            else
+            {
+                Game.eInventory = eInventory.none;
             }
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            if (!Game.isOption[2])
+            if (Game.eMenu != eMenuOptionState.Skill)
             {
-                Game.isOption[2] = true;
-                Game.isOption[0] = false;
+                Game.eMenu = eMenuOptionState.Skill;
+                Game.eInventory = eInventory.none;
             }
             else
             {
-                Game.isOption[2] = false;
+                Game.eMenu = eMenuOptionState.Game;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (Game.eMenu != eMenuOptionState.Network)
+            {
+                Game.eMenu = eMenuOptionState.Network;
+                Game.eInventory = eInventory.none;
+            }
+            else
+            {
+                Game.eMenu = eMenuOptionState.Game;
             }
         }
     }

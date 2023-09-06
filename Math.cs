@@ -4,16 +4,20 @@ using UnityEngine;
 using System.Linq; 
 public class Math : MonoBehaviour
 {
-    public static Transform findChildObject(Transform parent, string childName)
+    public static int div(float integer, float divider)
     {
+        integer = Mathf.Floor(integer);
+        divider = Mathf.Floor(divider);
+        return Mathf.FloorToInt(integer / divider);
+    }
+    public static Transform findChildObject(Transform parent, string childName)
+    { 
         Transform childTransform = parent.Find(childName);
         if (childTransform != null)
         {
-            // ถ้าค้นเจอ Transform ที่มีชื่อตรงตามที่ต้องการ ก็จะคืนค่า Transform นั้น
             return childTransform;
         }
 
-        // ถ้าไม่เจอที่ Transform ที่ตรงตามที่ต้องการในระดับนี้ จะทำการค้นหาในระดับลูกต่อไป
         foreach (Transform child in parent)
         {
             Transform foundChild = findChildObject(child, childName);
@@ -22,8 +26,6 @@ public class Math : MonoBehaviour
                 return foundChild;
             }
         }
-
-        // ถ้าไม่เจอเลยในทุกระดับลูก จะคืนค่า null
         return null;
     }
     public static Color HexToColor(string hex)

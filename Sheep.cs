@@ -118,5 +118,12 @@ public class Sheep : CharacterControl
     {
         base.GameControl();
     }
+    private void OnGUI()
+    {
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3((float)Screen.height / 1024f, (float)Screen.height / 1024f, 1f));
+        GUI.depth = 1;
+        this.display_0 = (float)(1024 * Screen.width / Screen.height);
+        this.display_1 = (float)Screen.height / 1024f;
+    }
 
 }
