@@ -21,6 +21,7 @@ public class GameGui : MonoBehaviour
     private Texture2D texture_7;
     private Texture2D texture_8;
     private Texture2D texture_9;
+    private Texture2D texture_10;
 
     private GUIStyle style_0;
     private GUIStyle style_1;
@@ -29,6 +30,7 @@ public class GameGui : MonoBehaviour
     private GUIStyle style_4;
     private GUIStyle style_5;
     private GUIStyle style_6;
+    private GUIStyle style_7;
     private void Init()
     {
         this.hover_0 = new HoverClass();
@@ -87,6 +89,9 @@ public class GameGui : MonoBehaviour
     private void InitInventory()
     {
         this.texture_9 = (Texture2D)Resources.Load("GUI/Game/InventoryBar", typeof(Texture2D));
+        this.texture_10 = (Texture2D)Resources.Load("GUI/Game/UranusBg01", typeof(Texture2D));
+        this.style_7 = new GUIStyle();
+        this.style_7.hover.background = (Texture2D)Resources.Load("GUI/Game/Trash_h", typeof(Texture2D));
     }
     void Start()
     {
@@ -136,7 +141,12 @@ public class GameGui : MonoBehaviour
     {
         if(Game.eInventory == eInventory.Active)
         {
-            GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 450f, 450f, 410f), this.texture_9);
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 482f, 450f, 410f), this.texture_9);
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 445f, this.display_1 + 601f, 349f, 193f), this.texture_10);
+            if(GUI.Button(new Rect(1f * this.display_0 - 110f, this.display_1 + 744f, 33f, 38f), string.Empty,this.style_7))
+            {
+
+            }
         }
     }   
     private void RenderStatusBar()
