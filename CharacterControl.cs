@@ -126,17 +126,6 @@ public class CharacterControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            if(Game.eMenu != eMenuOptionState.Status)
-            {
-                Game.eMenu = eMenuOptionState.Status;
-            }
-            else
-            {
-                Game.eMenu = eMenuOptionState.Game;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
             if (Game.eInventory != eInventory.Active)
             {
                 Game.eMenu = eMenuOptionState.Status;
@@ -145,6 +134,17 @@ public class CharacterControl : MonoBehaviour
             else
             {
                 Game.eInventory = eInventory.none;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (Game.eMenu != eMenuOptionState.Status)
+            {
+                Game.eMenu = eMenuOptionState.Status;
+            }
+            else
+            {
+                Game.eMenu = eMenuOptionState.Game;
             }
         }
         if (Input.GetKeyDown(KeyCode.F3))
@@ -174,7 +174,7 @@ public class CharacterControl : MonoBehaviour
     }
     protected virtual void PlayerRotation(GameObject mCam)
     {
-        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) )
         {
             transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y, 0f);
         }
@@ -188,7 +188,7 @@ public class CharacterControl : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y + 90f, 0f);
 
         }
-        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
         {
             transform.rotation = Quaternion.Euler(0f, mCam.transform.eulerAngles.y - 90f, 0f);
 

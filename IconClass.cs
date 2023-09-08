@@ -2,22 +2,18 @@ using UnityEngine;
 public class IconClass
 {
 	public IconClass()
-	{
-		this.name = "none";
+    {
+		this.name = "none"; 
 	}
-
-	public virtual void reset()
-	{
+	public void reset()
+    {
 		this.name = "none";
-		this.command = 0;
-		this.image = null;
-		this.state = eIconState.none;
 		this.hoverTime = 0f;
+		this.image = null;
+		this.state = eIconState.none; 
 	}
-
 	public string name;
-	public int command;
-	public Texture2D image;
-	public eIconState state;
 	public float hoverTime;
+	public Texture2D image;
+	public eIconState state; 
 }

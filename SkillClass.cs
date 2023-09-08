@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SkillClass : MonoBehaviour
+public class SkillClass 
 {
-    // Start is called before the first frame update
-    void Start()
+    public SkillClass()
     {
-        
+        this.name = "none"; 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int[] num;
+    public int div;
+    public int columns ;
+    public int rows ;
+    public int points; 
+    public int SP; 
+    public int HP; 
+    public int MP; 
+    public float CD; 
+    public float fCD;
+    public string name; 
 }

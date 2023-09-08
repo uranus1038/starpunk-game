@@ -9,6 +9,8 @@ namespace UMI.JSON
         public Data data;
         public CharacterClass[] cDat1 ;
         public CharacterClass[] cDat2  ;
+        public SkillClass[] pSkill1  ;
+        public SkillClass[] pSkill2;
         [System.Serializable]
         public class Data
         {

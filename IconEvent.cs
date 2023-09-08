@@ -115,4 +115,19 @@ public class IconEvent : MonoBehaviour
 		}
 		return result;
 	}
+	public static Texture2D getImage(string name)
+    {
+		Texture2D result = null;
+		switch(name)
+		{
+			case "none":
+				result = (Texture2D)Resources.Load("Gui/Icon/null", typeof(Texture2D));
+				break;
+			default:
+				result = (Texture2D)Resources.Load("Gui/Icon/null", typeof(Texture2D));
+				break; 
+		}
+		return result;
+
+	}
 }

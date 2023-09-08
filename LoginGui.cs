@@ -83,8 +83,8 @@ public class LoginGui : MonoBehaviour
         this.style_6.hover.background = (Texture2D)Resources.Load("GUI/Login/Realm1Button_h", typeof(Texture2D));
 
         this.style_7 = new GUIStyle();
-        this.style_7.normal.background = (Texture2D)Resources.Load("GUI/Login/Undo", typeof(Texture2D));
-        this.style_7.hover.background = (Texture2D)Resources.Load("GUI/Login/Undo_h", typeof(Texture2D));
+        this.style_7.normal.background = (Texture2D)Resources.Load("GUI/Login/ButtonUndo", typeof(Texture2D));
+        this.style_7.hover.background = (Texture2D)Resources.Load("GUI/Login/ButtonUndo_h", typeof(Texture2D));
     }
     private void OnGUI()
     {

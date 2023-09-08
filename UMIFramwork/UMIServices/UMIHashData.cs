@@ -56,8 +56,9 @@ namespace UMI.Data
             {
                 if (req.cDat1.Length > 0)
                 {
-                    CharacterClass pDat1 = req.cDat1[0];
-                    CharacterData.cDat1.setCdat(pDat1);
+                    CharacterClass pDat = req.cDat1[0];
+                    SkillClass pSk = req.pSkill1[0];
+                    CharacterData.cDat1.setCdat(pDat, pSk);
                 }
                 else
                 {
@@ -66,8 +67,9 @@ namespace UMI.Data
                 }
                 if (req.cDat2.Length > 0)
                 {
-                    CharacterClass pDat2 = req.cDat2[0];
-                    CharacterData.cDat2.setCdat(pDat2);
+                    CharacterClass pDat = req.cDat2[0];
+                    SkillClass pSk = req.pSkill2[0];
+                    CharacterData.cDat2.setCdat(pDat , pSk);
                 }
                 else
                 {

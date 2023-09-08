@@ -30,5 +30,7 @@ public class CharacterClass
     public int jumpForce = 1;
     public int[] stat ;
     public int[] bStat ;
+    public int[] skill ;
+    public int[] useCommon ;
 
 }

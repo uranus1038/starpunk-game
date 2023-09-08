@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameGui : MonoBehaviour
 {
+    private eSkillState eSkill;
     private float display_0;
     private float display_1;
+    private int Divide;
     private bool isGame;
     private bool isTrue;
     private bool isTexture;
@@ -31,8 +33,20 @@ public class GameGui : MonoBehaviour
     private GUIStyle style_5;
     private GUIStyle style_6;
     private GUIStyle style_7;
+    private GUIStyle style_8;
+    private GUIStyle style_9;
+    private GUIStyle style_10;
+    private GUIStyle style_11;
+    private GUIStyle style_12;
+    private GUIStyle style_13;
+    private GUIStyle style_14;
+    private GUIStyle style_15;
+    private GUIStyle style_16;
+    private GUIStyle style_17;
     private void Init()
     {
+        this.eSkill = eSkillState.Basic; 
+        this.Divide = 0; 
         this.hover_0 = new HoverClass();
         this.Icon = new IconClass();
         this.Icon.image = (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D));
@@ -43,6 +57,12 @@ public class GameGui : MonoBehaviour
         this.InitSkillBar();
         this.InitNetworkBar();
         this.InitInventory();
+        this.style_10 = new GUIStyle();
+        this.style_10.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonClose_h", typeof(Texture2D));
+        this.style_11 = new GUIStyle();
+        this.style_11.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonClose1_h", typeof(Texture2D));
+        this.style_12 = new GUIStyle();
+        this.style_12.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonClose2_h", typeof(Texture2D));
     }
     private void InitChracterOption()
     {
@@ -50,19 +70,20 @@ public class GameGui : MonoBehaviour
         this.texture_1 = (Texture2D)Resources.Load("GUI/Game/useBar", typeof(Texture2D));
         this.texture_2 = (Texture2D)Resources.Load("GUI/Game/HPMPSPMX", typeof(Texture2D));
         this.texture_3 = (Texture2D)Resources.Load("GUI/Game/HPMPSPTX", typeof(Texture2D));
+        // ######
         this.texture_4 = (Texture2D)Resources.Load("GUI/Characters/Wolf", typeof(Texture2D));
         this.style_0 = new GUIStyle(); 
-        this.style_0.hover.background = (Texture2D)Resources.Load("GUI/Game/bagIcon_h", typeof(Texture2D));  
+        this.style_0.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonInventoryIcon_h", typeof(Texture2D));  
         this.style_1 = new GUIStyle(); 
-        this.style_1.hover.background = (Texture2D)Resources.Load("GUI/Game/statusIcon_h", typeof(Texture2D));
+        this.style_1.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonStatusIcon_h", typeof(Texture2D));
         this.style_2 = new GUIStyle();
-        this.style_2.hover.background = (Texture2D)Resources.Load("GUI/Game/skillIcon_h", typeof(Texture2D));
+        this.style_2.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonSkillIcon_h", typeof(Texture2D));
         this.style_3 = new GUIStyle();
-        this.style_3.hover.background = (Texture2D)Resources.Load("GUI/Game/networkIcon_h", typeof(Texture2D));
+        this.style_3.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonNetworkIcon_h", typeof(Texture2D));
     }
     private void InitSkillBar()
     {
-        this.texture_7 = (Texture2D)Resources.Load("GUI/SkillCharacter/Wolf/Skill_Basic_Wolf", typeof(Texture2D));
+        this.texture_7 = (Texture2D)Resources.Load("GUI/SkillCharacter/SkillBar", typeof(Texture2D));
 
         this.style_4 = new GUIStyle();
         this.style_4.hover.background = (Texture2D)Resources.Load("GUI/Game/AButton_h", typeof(Texture2D));
@@ -85,13 +106,28 @@ public class GameGui : MonoBehaviour
     private void InitNetworkBar()
     {
         this.texture_8 = (Texture2D)Resources.Load("GUI/Game/NetworkBar", typeof(Texture2D));
+        this.style_13 = new GUIStyle();
+        this.style_13.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonLeft_h", typeof(Texture2D));
+        this.style_14 = new GUIStyle();
+        this.style_14.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonRight_h", typeof(Texture2D));
+        this.style_15 = new GUIStyle();
+        this.style_15.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonTrash1_h", typeof(Texture2D));
+        this.style_16 = new GUIStyle();
+        this.style_16.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonGuild_h", typeof(Texture2D));
+        this.style_17 = new GUIStyle();
+        this.style_17.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonFriends_h", typeof(Texture2D));
     }
+
     private void InitInventory()
     {
         this.texture_9 = (Texture2D)Resources.Load("GUI/Game/InventoryBar", typeof(Texture2D));
         this.texture_10 = (Texture2D)Resources.Load("GUI/Game/UranusBg01", typeof(Texture2D));
         this.style_7 = new GUIStyle();
-        this.style_7.hover.background = (Texture2D)Resources.Load("GUI/Game/Trash_h", typeof(Texture2D));
+        this.style_7.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonTrash_h", typeof(Texture2D));
+        this.style_8 = new GUIStyle();
+        this.style_8.hover.background = (Texture2D)Resources.Load("GUI/Game/TroggleCopy2_h", typeof(Texture2D));
+        this.style_9 = new GUIStyle();
+        this.style_9.hover.background = (Texture2D)Resources.Load("GUI/Game/TroggleCopy1_h", typeof(Texture2D));
     }
     void Start()
     {
@@ -142,11 +178,28 @@ public class GameGui : MonoBehaviour
         if(Game.eInventory == eInventory.Active)
         {
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 482f, 450f, 410f), this.texture_9);
-            GUI.DrawTexture(new Rect(1f * this.display_0 - 445f, this.display_1 + 601f, 349f, 193f), this.texture_10);
+            // trash
             if(GUI.Button(new Rect(1f * this.display_0 - 110f, this.display_1 + 744f, 33f, 38f), string.Empty,this.style_7))
             {
 
             }
+            // coppy2
+            if (GUI.Button(new Rect(1f * this.display_0 - 115f, this.display_1 + 680f, 40f, 40f), string.Empty, this.style_8))
+            {
+
+            }
+            // coppy1
+            if (GUI.Button(new Rect(1f * this.display_0 - 115f, this.display_1 + 620f, 40f, 40f), string.Empty, this.style_9))
+            {
+
+            }
+            // close
+            if (GUI.Button(new Rect(1f * this.display_0 - 109f, this.display_1 + 504f, 40f, 40f), string.Empty, this.style_10))
+            {
+                Game.eInventory = eInventory.none;
+            }
+            //bg uranus
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 445f, this.display_1 + 601f, 349f, 193f), this.texture_10);
         }
     }   
     private void RenderStatusBar()
@@ -154,6 +207,10 @@ public class GameGui : MonoBehaviour
         if(Game.eMenu == eMenuOptionState.Status)
         {
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 18f, 450f, 450f), this.texture_6);
+            if (GUI.Button(new Rect(1f * this.display_0 - 108f, this.display_1 + 30f, 30f, 30f), string.Empty, this.style_11))
+            {
+                Game.eMenu = eMenuOptionState.none;
+            }
         }
     }
     private void RenderSkillBar()
@@ -163,15 +220,29 @@ public class GameGui : MonoBehaviour
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 78f, 450f, 820f), this.texture_7);
             if (GUI.Button(new Rect(1f * this.display_0 - 357f, this.display_1 + 121f, 81f, 35f), string.Empty, this.style_5))
             {
-
+                this.eSkill = eSkillState.B;
             }
             if (GUI.Button(new Rect(1f * this.display_0 - 413f, this.display_1 + 121f, 81f, 35f), string.Empty, this.style_4))
             {
-                UMI.UMISystem.Log("Button 1 Clicked");
+                this.eSkill = eSkillState.A;
             }
             if (GUI.Button(new Rect(1f * this.display_0 - 480f, this.display_1 + 121f, 81f, 35f),string.Empty ,this.style_6))
             {
-                UMI.UMISystem.Log("Button 2 Clicked");
+                this.eSkill = eSkillState.Basic;
+            }
+            if (GUI.Button(new Rect(1f * this.display_0 - 125f, this.display_1 + 112f, 40f, 40f), string.Empty, this.style_10))
+            {
+                Game.eMenu = eMenuOptionState.none;
+            }
+
+            if(this.eSkill.Equals(eSkillState.Basic))
+            {
+                SkillClass skillClass = new SkillClass();
+                skillClass.rows = 4;
+                for(int i=0; i< skillClass.rows; i ++)
+                {
+
+                }
             }
         }
     }
@@ -179,7 +250,37 @@ public class GameGui : MonoBehaviour
     {
         if (Game.eMenu == eMenuOptionState.Network)
         {
-            GUI.DrawTexture(new Rect(1f * this.display_0 - 419f, this.display_1 + 420f, 420f, 605f), this.texture_8);
+            GUI.DrawTexture(new Rect(1f * this.display_0 - 415f, this.display_1 + 420f, 420f, 605f), this.texture_8);
+            // Close
+            if (GUI.Button(new Rect(1f * this.display_0 - 52f, this.display_1 + 435f, 30f, 30f), string.Empty, this.style_11))
+            {
+                Game.eMenu = eMenuOptionState.none;
+            }
+            // troggle Left
+            if (GUI.Button(new Rect(1f * this.display_0 - 376f, this.display_1 + 909f, 22f, 25f), string.Empty, this.style_13))
+            {
+               
+            }
+            // troggle Right
+            if (GUI.Button(new Rect(1f * this.display_0 - 311f, this.display_1 + 909f, 22f, 25f), string.Empty, this.style_14))
+            {
+               
+            }
+            // trash 
+            if (GUI.Button(new Rect(1f * this.display_0 - 211f, this.display_1 + 905f, 30f, 34f), string.Empty, this.style_15))
+            {
+
+            }
+            // Guild Network
+            if (GUI.Button(new Rect(1f * this.display_0 - 258f, this.display_1 + 442f, 101f, 48f), string.Empty, this.style_16))
+            {
+
+            }
+            // Friends Network
+            if (GUI.Button(new Rect(1f * this.display_0 - 360f, this.display_1 + 442f, 101f, 48f), string.Empty, this.style_17))
+            {
+
+            }
         }
     }
     private void GUIControl()

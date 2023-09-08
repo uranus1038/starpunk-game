@@ -37,7 +37,7 @@ public class CharacterDataClass
         this.data.runspeed = this.getMove((int)this.data.type, out jumpForce);
         this.data.jumpForce = jumpForce; 
     }
-    public void setCdat(CharacterClass mChar)
+    public void setCdat(CharacterClass mChar , SkillClass aSkill)
     {
         int jumpForce = 0;
         this.data.type = mChar.type; 
@@ -59,6 +59,7 @@ public class CharacterDataClass
         this.data.nexp = mChar.nexp;
         this.data.runspeed = this.getMove((int)this.data.type, out jumpForce);
         this.data.jumpForce = jumpForce;
+        this.data.skill = aSkill.num;
     }
     private int[] getStat()
     {

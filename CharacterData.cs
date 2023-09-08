@@ -8,7 +8,6 @@ public class CharacterData : MonoBehaviour
     public static CharacterDataClass cDat1 = new CharacterDataClass();
     public static CharacterDataClass cDat2 = new CharacterDataClass();
     public static CharacterDataClass cDat3 = new CharacterDataClass();
-
     public static void Init()
     {
         UMISystem.Log("Character Data Initialized");
