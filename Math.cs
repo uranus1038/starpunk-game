@@ -4,11 +4,9 @@ using UnityEngine;
 using System.Linq; 
 public class Math : MonoBehaviour
 {
-    public static int div(float integer, float divider)
+    public static float div(int i, float n)
     {
-        integer = Mathf.Floor(integer);
-        divider = Mathf.Floor(divider);
-        return Mathf.FloorToInt(integer / divider);
+        return (i == 1f) ? Mathf.FloorToInt(n) : Mathf.FloorToInt(n * i);
     }
     public static Transform findChildObject(Transform parent, string childName)
     { 

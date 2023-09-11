@@ -8,6 +8,7 @@ public class SkillClass
     public int div;
     public int columns ;
     public int rows ;
+    public int index ;
     public int points; 
     public int SP; 
     public int HP; 

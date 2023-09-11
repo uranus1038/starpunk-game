@@ -7,6 +7,8 @@ public class GameGui : MonoBehaviour
     private eSkillState eSkill;
     private float display_0;
     private float display_1;
+    private float[] x;
+    private float y;
     private int Divide;
     private bool isGame;
     private bool isTrue;
@@ -45,6 +47,8 @@ public class GameGui : MonoBehaviour
     private GUIStyle style_17;
     private void Init()
     {
+        this.x = new float[] { 0, 422f, 342f, 262f, 182f };
+        this.y = 118f;
         this.eSkill = eSkillState.Basic; 
         this.Divide = 0; 
         this.hover_0 = new HoverClass();
@@ -238,10 +242,41 @@ public class GameGui : MonoBehaviour
             if(this.eSkill.Equals(eSkillState.Basic))
             {
                 SkillClass skillClass = new SkillClass();
-                skillClass.rows = 4;
-                for(int i=0; i< skillClass.rows; i ++)
+                skillClass.rows = 8;
+                skillClass.num = new int[] { 0,2, 3, 2, 4 ,3,3,4,2};
+                int slot=1;
+                for(skillClass.index=1; skillClass.index <= skillClass.rows; skillClass.index++)
                 {
-
+                    skillClass.columns = 1;
+                    for (skillClass.columns = 1; skillClass.columns <= skillClass.num[skillClass.index]; skillClass.columns++)
+                    {
+                        GUI.DrawTexture(new Rect(1f*this.display_0-x[skillClass.columns],
+                            this.display_1+y+ global::Math.div(skillClass.index,78f),
+                            64,64),
+                            (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D)));
+                        slot++;
+                    }
+                    UMI.UMISystem.Log(skillClass.index);
+                }
+            }
+            if (this.eSkill.Equals(eSkillState.A))
+            {
+                SkillClass skillClass = new SkillClass();
+                skillClass.rows = 8;
+                skillClass.num = new int[] { 0, 4, 4, 4, 4, 3, 3, 4, 2 };
+                int slot = 1;
+                for (skillClass.index = 1; skillClass.index <= skillClass.rows; skillClass.index++)
+                {
+                    skillClass.columns = 1;
+                    for (skillClass.columns = 1; skillClass.columns <= skillClass.num[skillClass.index]; skillClass.columns++)
+                    {
+                        GUI.DrawTexture(new Rect(1f * this.display_0 - x[skillClass.columns],
+                            this.display_1 + y + global::Math.div(skillClass.index, 78f),
+                            64, 64),
+                            (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D)));
+                        slot++;
+                    }
+                    UMI.UMISystem.Log(skillClass.index);
                 }
             }
         }

@@ -26,6 +26,10 @@ namespace UMI
         {
             print("UMILog::" + msg);
         }
+        public static void Log(float msg)
+        {
+            print("UMILog::" + msg);
+        }
         public static void Log(bool msg)
         {
             print("UMILog::" + msg);

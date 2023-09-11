@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class SkillData : MonoBehaviour
 {
-   
+ 
+    public void Awake()
+    {
+       
+    }
 }
