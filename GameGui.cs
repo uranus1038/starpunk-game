@@ -5,15 +5,15 @@ using UnityEngine;
 public class GameGui : MonoBehaviour
 {
     private eSkillState eSkill;
+    private IconClass iconClass;
     private float display_0;
     private float display_1;
     private float[] x;
     private float y;
-    private int Divide;
     private bool isGame;
     private bool isTrue;
     private bool isTexture;
-    private IconClass Icon;
+    private IconClass[] IconButton;
     private HoverClass hover_0;
     private Texture2D texture_0;
     private Texture2D texture_1;
@@ -49,11 +49,14 @@ public class GameGui : MonoBehaviour
     {
         this.x = new float[] { 0, 422f, 342f, 262f, 182f };
         this.y = 118f;
-        this.eSkill = eSkillState.Basic; 
-        this.Divide = 0; 
+        this.eSkill = eSkillState.Basic;
         this.hover_0 = new HoverClass();
-        this.Icon = new IconClass();
-        this.Icon.image = (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D));
+        this.IconButton = new IconClass[40];
+        for(int j =0; j < 40; j++)
+        {
+            this.IconButton[j] = new IconClass();
+            
+        }
         this.isGame = true;
         this.InitChracterOption();
         this.InitStatusbar();
@@ -76,9 +79,9 @@ public class GameGui : MonoBehaviour
         this.texture_3 = (Texture2D)Resources.Load("GUI/Game/HPMPSPTX", typeof(Texture2D));
         // ######
         this.texture_4 = (Texture2D)Resources.Load("GUI/Characters/Wolf", typeof(Texture2D));
-        this.style_0 = new GUIStyle(); 
-        this.style_0.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonInventoryIcon_h", typeof(Texture2D));  
-        this.style_1 = new GUIStyle(); 
+        this.style_0 = new GUIStyle();
+        this.style_0.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonInventoryIcon_h", typeof(Texture2D));
+        this.style_1 = new GUIStyle();
         this.style_1.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonStatusIcon_h", typeof(Texture2D));
         this.style_2 = new GUIStyle();
         this.style_2.hover.background = (Texture2D)Resources.Load("GUI/Game/ButtonSkillIcon_h", typeof(Texture2D));
@@ -143,7 +146,7 @@ public class GameGui : MonoBehaviour
     }
     private void Update()
     {
-       
+
     }
     private void OnGUI()
     {
@@ -151,13 +154,14 @@ public class GameGui : MonoBehaviour
         GUI.depth = 2;
         this.display_0 = (float)(1024 * Screen.width / Screen.height);
         this.display_1 = (float)Screen.height / 1024f;
-        if(this.isGame)
+        if (this.isGame)
         {
             this.RenderNetWorkBar();
             this.RenderChracterUse();
             this.RenderStatusBar();
             this.RenderSkillBar();
             this.RenderInventory();
+            this.RenderCharacterActive();
         }
     }
     private void RenderChracterUse()
@@ -166,8 +170,8 @@ public class GameGui : MonoBehaviour
         GUI.DrawTexture(new Rect(0f, this.display_1 + 799, 445, 225f), this.texture_0);
         // # Item bar
         GUI.DrawTexture(new Rect(1f * this.display_0 - 1167f, this.display_1 + 844f, 1168f, 180f), this.texture_1);
-        
-        this.GUIControl(); 
+
+        this.GUIControl();
         // # HPMPSP bar
         GUI.DrawTexture(new Rect(155f, this.display_1 + 928f, 230f, 90f), this.texture_2);
         // # Character
@@ -179,11 +183,11 @@ public class GameGui : MonoBehaviour
     }
     private void RenderInventory()
     {
-        if(Game.eInventory == eInventory.Active)
+        if (Game.eInventory == eInventory.Active)
         {
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 482f, 450f, 410f), this.texture_9);
             // trash
-            if(GUI.Button(new Rect(1f * this.display_0 - 110f, this.display_1 + 744f, 33f, 38f), string.Empty,this.style_7))
+            if (GUI.Button(new Rect(1f * this.display_0 - 110f, this.display_1 + 744f, 33f, 38f), string.Empty, this.style_7))
             {
 
             }
@@ -205,10 +209,10 @@ public class GameGui : MonoBehaviour
             //bg uranus
             GUI.DrawTexture(new Rect(1f * this.display_0 - 445f, this.display_1 + 601f, 349f, 193f), this.texture_10);
         }
-    }   
+    }
     private void RenderStatusBar()
     {
-        if(Game.eMenu == eMenuOptionState.Status)
+        if (Game.eMenu == eMenuOptionState.Status)
         {
             GUI.DrawTexture(new Rect(1f * this.display_0 - 505f, this.display_1 + 18f, 450f, 450f), this.texture_6);
             if (GUI.Button(new Rect(1f * this.display_0 - 108f, this.display_1 + 30f, 30f, 30f), string.Empty, this.style_11))
@@ -230,7 +234,7 @@ public class GameGui : MonoBehaviour
             {
                 this.eSkill = eSkillState.A;
             }
-            if (GUI.Button(new Rect(1f * this.display_0 - 480f, this.display_1 + 121f, 81f, 35f),string.Empty ,this.style_6))
+            if (GUI.Button(new Rect(1f * this.display_0 - 480f, this.display_1 + 121f, 81f, 35f), string.Empty, this.style_6))
             {
                 this.eSkill = eSkillState.Basic;
             }
@@ -239,45 +243,50 @@ public class GameGui : MonoBehaviour
                 Game.eMenu = eMenuOptionState.none;
             }
 
-            if(this.eSkill.Equals(eSkillState.Basic))
+            if (this.eSkill.Equals(eSkillState.Basic))
             {
                 SkillClass skillClass = new SkillClass();
-                skillClass.rows = 8;
-                skillClass.num = new int[] { 0,2, 3, 2, 4 ,3,3,4,2};
-                int slot=1;
-                for(skillClass.index=1; skillClass.index <= skillClass.rows; skillClass.index++)
-                {
-                    skillClass.columns = 1;
-                    for (skillClass.columns = 1; skillClass.columns <= skillClass.num[skillClass.index]; skillClass.columns++)
-                    {
-                        GUI.DrawTexture(new Rect(1f*this.display_0-x[skillClass.columns],
-                            this.display_1+y+ global::Math.div(skillClass.index,78f),
-                            64,64),
-                            (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D)));
-                        slot++;
-                    }
-                    UMI.UMISystem.Log(skillClass.index);
-                }
-            }
-            if (this.eSkill.Equals(eSkillState.A))
-            {
-                SkillClass skillClass = new SkillClass();
-                skillClass.rows = 8;
-                skillClass.num = new int[] { 0, 4, 4, 4, 4, 3, 3, 4, 2 };
-                int slot = 1;
+               
+                    skillClass.rows = 8;
+                    skillClass.num = new int[] { 0, 2, 3, 2, 4, 3, 3, 4, 2 };
+                    skillClass.iconNum = 1;
                 for (skillClass.index = 1; skillClass.index <= skillClass.rows; skillClass.index++)
                 {
                     skillClass.columns = 1;
                     for (skillClass.columns = 1; skillClass.columns <= skillClass.num[skillClass.index]; skillClass.columns++)
                     {
-                        GUI.DrawTexture(new Rect(1f * this.display_0 - x[skillClass.columns],
+                        Rect position = new Rect(1f * this.display_0 - x[skillClass.columns],
                             this.display_1 + y + global::Math.div(skillClass.index, 78f),
-                            64, 64),
-                            (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D)));
-                        slot++;
+                            64, 64);
+                        this.IconButton[skillClass.iconNum].state = eIconState.none;
+                        this.IconButton[skillClass.iconNum].hoverTime = 0f;
+                        this.IconButton[skillClass.iconNum].image = (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D));  
+                        GUI.DrawTexture(position, this.IconButton[skillClass.iconNum].image);
+                        eIconState iconState = IconEvent.IconMove(this.IconButton[skillClass.iconNum], position);
+                        eIconState iconState2 = iconState;
+                        if (iconState2 == eIconState.none)
+                        {
+                                
+                        }
+                        if (iconState2 == eIconState.hover)
+                        {
+                            GUI.DrawTexture(position,(Texture2D)Resources.Load("GUI/Icon/ButtonAddSkill", typeof(Texture2D)));
+                        }if(iconState2 == eIconState.drop)
+                        {
+                            UMI.UMISystem.Log("drop 1");
+
+                        }if(iconState2 == eIconState.drag)
+                        {
+                            UMI.UMISystem.Log("drag");
+                            GUI.DrawTexture(new Rect(600, 600, 64, 64), (Texture2D)Resources.Load("GUI/Icon/null", typeof(Texture2D)));
+                        }
+                        skillClass.iconNum++;
+                        
                     }
-                    UMI.UMISystem.Log(skillClass.index);
+                
                 }
+
+                   
             }
         }
     }
@@ -294,12 +303,12 @@ public class GameGui : MonoBehaviour
             // troggle Left
             if (GUI.Button(new Rect(1f * this.display_0 - 376f, this.display_1 + 909f, 22f, 25f), string.Empty, this.style_13))
             {
-               
+
             }
             // troggle Right
             if (GUI.Button(new Rect(1f * this.display_0 - 311f, this.display_1 + 909f, 22f, 25f), string.Empty, this.style_14))
             {
-               
+
             }
             // trash 
             if (GUI.Button(new Rect(1f * this.display_0 - 211f, this.display_1 + 905f, 30f, 34f), string.Empty, this.style_15))
@@ -318,6 +327,10 @@ public class GameGui : MonoBehaviour
             }
         }
     }
+    private void RenderCharacterActive()
+    {
+       
+    }
     private void GUIControl()
     {
         // # h Inventory
@@ -326,7 +339,10 @@ public class GameGui : MonoBehaviour
             if (Game.eInventory != eInventory.Active)
             {
                 Game.eInventory = eInventory.Active;
-                Game.eMenu = eMenuOptionState.Status;
+                if (Game.eMenu != eMenuOptionState.Status)
+                {
+                    Game.eMenu = eMenuOptionState.Game;
+                }
             }
             else
             {
@@ -383,5 +399,5 @@ public class GameGui : MonoBehaviour
         //GUILayout.EndHorizontal();
         //GUI.EndGroup();
     }
-    
+
 }

@@ -128,8 +128,12 @@ public class CharacterControl : MonoBehaviour
         {
             if (Game.eInventory != eInventory.Active)
             {
-                Game.eMenu = eMenuOptionState.Status;
+                
                 Game.eInventory = eInventory.Active;
+                if (Game.eMenu != eMenuOptionState.Status)
+                {
+                    Game.eMenu = eMenuOptionState.Game;
+                }
             }
             else
             {

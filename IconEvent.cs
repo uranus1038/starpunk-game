@@ -41,12 +41,13 @@ public class IconEvent : MonoBehaviour
 			{
 				return (!position.Contains(Event.current.mousePosition)) ? eIconEvent.none : eIconEvent.hover;
 			}
-			if (GUIUtility.hotControl == controlID && Event.current.button == 1)
+			if (GUIUtility.hotControl == controlID && Event.current.button == 1 )
 			{
 				GUIUtility.hotControl = 0;
 				return eIconEvent.drag;
 			}
 		}
+
 		return eIconEvent.none;
 	}
 	public static eIconState IconMove(IconClass nIcon, Rect nIconPosition)

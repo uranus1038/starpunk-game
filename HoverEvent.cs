@@ -20,7 +20,7 @@ public class HoverEvent : MonoBehaviour
 		}
 		else
 		{
-			if (typeForControl != EventType.MouseUp)
+			if (typeForControl == EventType.MouseUp)
 			{
 				if (GUIUtility.hotControl == controlID)
 				{
